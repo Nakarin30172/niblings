@@ -1,0 +1,77 @@
+<style>
+  li:hover {
+    background-color: #434647;
+  }
+  .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    color: rgb(255, 255, 255);
+    background-color: #434647;
+  }
+  .bold { 
+  font-weight: bold;
+}
+  </style>
+
+  
+<ng4-loading-spinner> </ng4-loading-spinner>
+<div *ngIf="isLogin()">
+  <div *ngIf="isNotViewScreen">
+    <nav class="navbar navbar-default navbar-fixed-top" style="background-color: rgb(0, 0, 0);">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand bold" [routerLink]="['requirement']" style="color: rgb(255, 255, 255);"><i class="glyphicon glyphicon-check"></i> NIBLINGS</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li routerLinkActive="active"><a [routerLink]="['requirement']" style="color: rgb(255, 255, 255);">Requirement</a></li>
+              <!--
+              <li routerLinkActive="active"><a [routerLink]="['screen-design']">Screen Design</a></li>
+              -->
+              <li routerLinkActive="active" *ngxPermissionsOnly="['Admin','Tester']"><a [routerLink]="['plan-test-execution']" style="color: rgb(255, 255, 255);">Plan Test Execution</a></li>
+              <!--
+              <li class="dropdown" *ngxPermissionsOnly="['Admin','Tester']" routerLinkActive="active">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="JavaScript:void(0)">Plan Test Execution
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li routerLinkActive="active"><a [routerLink]="['plan-test-case']">Plan Test Case</a></li>
+                  <li routerLinkActive="active"><a [routerLink]="['plan-test-scenario']">Plan Test Scenario</a></li>
+                </ul>
+              </li>
+              -->
+              <li routerLinkActive="active" *ngxPermissionsExcept="['BA']"><a [routerLink]="['testcase']" style="color: rgb(255, 255, 255);">Test Case</a></li>
+              <!--
+              <li class="dropdown" routerLinkActive="active">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="JavaScript:void(0)">Business Test Scenario
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li routerLinkActive="active"><a [routerLink]="['user-scenario']">User Scenario</a></li>
+                  <li routerLinkActive="active"><a [routerLink]="['test-scenario']">Test Scenario</a></li>
+                </ul>
+              </li>
+              -->
+              <!--
+              <li routerLinkActive="active" *ngxPermissionsExcept="['BA']"><a [routerLink]="['defect']">Defect</a></li>
+              -->
+              <!--
+              <li routerLinkActive="active" *ngxPermissionsExcept="['BA']"><a [routerLink]="['summary']">Summary</a></li>
+              -->
+              <li routerLinkActive="active" *ngxPermissionsExcept="['BA']"><a [routerLink]="['requirement-traceability-matrix']" style="color: rgb(255, 255, 255);">Requirement Traceability Matrix</a></li>
+              <li routerLinkActive="active" ><a [routerLink]="['Defect']" style="color: rgb(255, 255, 255);">Defect</a></li>
+              <li routerLinkActive="active" *ngxPermissionsOnly="['Admin']"><a [routerLink]="['manage-user']" style="color: rgb(255, 255, 255);">Manage User</a></li>
+                
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="JavaScript:void(0)" style="color: rgb(255, 255, 255);"><span class="glyphicon glyphicon-user"></span> {{Userfullname}}</a></li>
+              <li routerLinkActive="active"><a href="JavaScript:void(0)" (click)="doLogout()" style="color: rgb(255, 255, 255);"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <router-outlet></router-outlet>

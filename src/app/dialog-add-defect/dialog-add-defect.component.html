@@ -1,0 +1,45 @@
+<style>
+    tr.setheader {
+        color: #fff;
+        background: #37a0d3;
+    }
+</style>
+<h2 mat-dialog-title><i class="glyphicon glyphicon-plus"></i> Add Defect</h2>
+    <form [formGroup]="addDefectForm">
+        <div class="form-group">
+            <label for="valDefectID">Defect ID</label>
+            <select class="form-control" formControlName="valDefectID" #mySelectDef (change)="selectDef(mySelectDef.value)">
+                <option value="">-- Select DefectID --</option>
+                <option *ngFor="let Def of listDefectSelect" value="{{Def}}">DF_000{{Def}}</option>
+                <option value="{{DefPlusData}}">DF_000{{DefPlusData}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="valDefDes">Defect Description</label>
+            <textarea class="form-control" formControlName="valDefDes" rows="4" value=""></textarea>
+        </div>
+        <div class="form-group">
+            <label for="valDefExpR">Expected Result</label>
+            <textarea class="form-control" formControlName="valDefExpR" rows="4" value=""></textarea>
+        </div>
+        <div class="form-group">
+            <label for="valStatusDef">Status</label>
+            <input type="text" class="form-control" formControlName="valStatusDef" value="" readonly>
+        </div>
+        <div class="form-group">
+            <label for="valDefectIncidentBy">Incident By</label>
+            <select class="form-control" formControlName="valDefectIncidentBy">
+                <option value="">-- Select Incident By --</option>
+                <option *ngFor="let User of userData" value="{{User.idU}}">{{User.UName}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="valDefectAssignTo">Assign To</label>
+            <select class="form-control" formControlName="valDefectAssignTo">
+                <option value="">-- Select Assign To --</option>
+                <option *ngFor="let User of userData" value="{{User.idU}}">{{User.UName}}</option>
+            </select>
+        </div>
+        <button class="button" (click)="save(addDefectForm.value)" class="btn btn-success">Save</button>
+        <button class="button" (click)="close()" class="btn btn-default">Close</button>
+    </form>

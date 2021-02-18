@@ -1,0 +1,56 @@
+<style>   
+.space-header {
+  background: rgb(255, 255, 255);
+  border-radius: 20px;
+  margin-top: 10%;
+  border: #37a0d3 3px solid;
+  padding-top: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px;
+  padding-left: 50px;
+  width: 500px;
+  }   
+  </style>
+<div class="container space-header">
+    <div class="ac_container ac_container-grayborder morepadd ac_loginbox cf">
+    </div>
+    <div class="ac_input-large inputblurred">
+        <div class="row" style="text-align: center">
+        <i class="glyphicon glyphicon-user"style="font-size:50px;"></i>
+        </div>
+        <h3 style="text-align: center; font-weight : bold">NIBLINGS</h3>
+        <br>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+            <div class="form-group">
+                <h5 for="email" style="font-weight : bold">
+                Email
+                </h5>
+                <input type="email" formControlName="email" class="form-control"placeholder="Enter your email">
+                <span *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)"style="color:red">
+                    Please enter the correct email, this email not valid.
+                </span>
+            </div>
+            <div class="form-group">
+                <h5 for="password"style="font-weight : bold">
+                Password
+                </h5>
+                <input type="password" formControlName="password" class="form-control"placeholder="Enter your password">
+                <span *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)"style="color:red">
+                    Please fill password field, field is invalid.
+                </span>
+            </div> 
+            <div class="row" style="text-align: center">
+            <button class="button" type="submit"  class="btn btn-primary" style="width: 300px; margin: 30px;">Login</button>
+            <!-- <button class="button" class="btn btn-default" (click)="resetForm()" style="width: 80px; margin: 5px;">Reset</button> -->
+
+            </div>
+            <!--<div>
+                <span *ngIf="loginForm.invalid" style="color:red">
+                Please fill all field.
+                </span>
+                </div>-->
+        </form> 
+    </div>
+    <div class="col-sm-4">
+    </div>
+</div>

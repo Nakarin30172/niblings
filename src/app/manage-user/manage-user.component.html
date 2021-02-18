@@ -1,0 +1,34 @@
+<div class="container space-header">
+    <style>
+        tr.setheader {
+            color: #fff;
+            background: #000000;
+        }
+        .table>thead>tr>th{
+            padding: 15px;
+            text-align: center;
+            font-size: 12.5px;
+        }
+    </style>
+    <h3><i class="glyphicon glyphicon-user"></i> List User</h3>
+    <br>
+    <a [routerLink]="['../add-user']" class="btn btn-primary" style="width: 80px;">Add User</a>
+    <br><br>
+    <table class="table table-hover table-bordered setFontSize">
+            <thead>
+                <tr class="setheader">
+                <th style="width:300px;">Position</th> 
+                <th style="width:300px;">User Name</th>
+                <th style="width:300px;">Description</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let detailUser of detailUsers">  
+                <td>{{detailUser.UPosition}}</td> 
+                <td>{{detailUser.UName}}</td> 
+                <td>{{detailUser.UDes}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

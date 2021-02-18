@@ -1,0 +1,33 @@
+
+<div class="container space-header">
+    <style>
+        tr.setheader {
+            color: #fff;
+            background: #3f3f3f;
+        }
+        .table>thead>tr>th{
+            padding: 15px;
+            text-align: center;
+            font-size: 12.5px;
+        }
+    </style>
+    <h3><i class="glyphicon glyphicon-file"></i> Requirement Traceability Matrix</h3>
+    <br>
+    <!-- <table class="table table-bordered setFontSize"> -->
+        <table class="table table-hover table-bordered setFontSize">
+        <thead>
+            <tr class="setheader">
+                <th style="width:400px;">Business Requirement ID</th>
+                <th style="width:400px;">Functional Requirement ID</th> 
+                <th style="width:400px;">Test Case ID</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let detailRTM of mergeData">
+                <td>BR_000{{detailRTM.BRID}}</td>
+                <td>FR_000{{detailRTM.FRID}}</td>
+                <td>TC_000{{detailRTM.TCID}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

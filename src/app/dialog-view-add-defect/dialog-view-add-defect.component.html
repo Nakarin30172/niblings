@@ -1,0 +1,143 @@
+<style>
+    tr.setheader {
+        color: #fff;
+        background: #000000;
+    }
+    .table>thead>tr>th {
+        padding: 15px;
+        text-align: center;
+        font-size: 12.5px;
+    }
+    .pointer 
+    {
+        cursor: pointer;
+    }
+</style>
+<h2 mat-dialog-title><i class="glyphicon glyphicon-plus"></i> Add and View Defect</h2>
+    <table class="table table-hover table-bordered setFontSize">
+        <thead>
+            <tr class="setheader">
+                <th>Defect ID</th>
+                <th>Title</th>              
+                <th>Defect Description</th>
+                <th>Expected Result</th>
+                <th>Comment</th>
+                <th>Status</th>
+                <th>Defect Type</th>
+                <th>DefectSource</th>
+                <th>Serverity</th>
+                <th>Incident By</th>
+                <th>Assign To</th>
+                <th>Update Date</th>
+                <th>Update By</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let detailDef of mergeData">
+                <td *ngIf='detailDef.DefID != ""'>
+                    <input type="text" value="DF_000{{detailDef.DefID}}" readonly>
+                </td>   
+                <td *ngIf='detailDef.DefID == ""'>
+                    <select #mySelectDFID (change)="selectDF(detailDef.idDef,mySelectDFID.value)">
+                        <option value="">-- Select DFID --</option>
+                        <option *ngFor="let DF of listDFSelect" value="{{DF}}">DF_000{{DF}}</option>
+                        <option value="{{dfPlusData}}">DF_000{{dfPlusData}}</option>
+                    </select>
+                </td>   
+                <td>
+                    <textarea #valueDefTitle rows="4" value="{{detailDef.DefTitle}}" (keyup)="saveDefTitle(detailDef.idDef,valueDefTitle.value)" style="width:300px;"></textarea>
+                </td>
+                <td>
+                    <textarea #valueDefDes rows="4" value="{{detailDef.DefDes}}" (keyup)="saveDefDes(detailDef.idDef,valueDefDes.value)" style="width:300px;"></textarea>
+                </td>
+
+                <td>
+                    <textarea #valueDefER rows="4" value="{{detailDef.DefE_Result}}" (keyup)="saveDefER(detailDef.idDef,valueDefER.value)"style="width:300px;"></textarea>
+                </td>
+                <td>
+                    <textarea #valueDefcom rows="4" value="{{detailDef.Defcom}}" (keyup)="saveDefcom(detailDef.idDef,valueDefcom.value)"style="width:300px;"></textarea>
+                </td>
+                <td>
+                <select #mySelectDFStatus (change)="selectStatus(detailDef.idDef,mySelectDFStatus.value)">
+                    <option value="0" [selected]="detailDef.DefStatus=='0'">Open</option>
+                    <option value="1" [selected]="detailDef.DefStatus=='1'">Delivered to test</option>
+                    <option value="2" [selected]="detailDef.DefStatus=='2'">Reject from test</option>
+                    <option value="3" [selected]="detailDef.DefStatus=='3'">Closed</option>
+                </select>
+            </td>
+            <td>
+                <select #mySelectDFType (change)="selectType(detailDef.idDef,mySelectDFType.value)">
+                    <option value="0" [selected]="detailDef.DefType=='0'">Coding logic/technic</option>
+                    <option value="1" [selected]="detailDef.DefType=='1'">Communication failure</option>
+                    <option value="2" [selected]="detailDef.DefType=='2'">Improvement process</option>
+                    <option value="3" [selected]="detailDef.DefType=='3'">Design problem</option>
+                    <option value="4" [selected]="detailDef.DefType=='4'">Team Misunderstand design</option>
+                    <option value="5" [selected]="detailDef.DefType=='5'">User Misunderstand system</option>
+                    <option value="6" [selected]="detailDef.DefType=='6'">Master data setup</option>
+                    <option value="7" [selected]="detailDef.DefType=='7'">Decorative/cosmetic</option>
+                    <option value="8" [selected]="detailDef.DefType=='8'">Performance problem</option>
+                    <option value="9" [selected]="detailDef.DefType=='9'">Product</option>
+                    <option value="10" [selected]="detailDef.DefType=='10'">Data Problem</option>
+                    <option value="11" [selected]="detailDef.DefType=='11'">Development not completed</option>
+                    <option value="12" [selected]="detailDef.DefType=='12'">Technical Pronlem</option>                                           
+                    <option value="13" [selected]="detailDef.DefType=='13'">Deployment Problem</option>
+                    <option value="14" [selected]="detailDef.DefType=='14'">New Requirment</option>
+                    <option value="15" [selected]="detailDef.DefType=='15'">Change Requirment</option>
+                    <option value="16" [selected]="detailDef.DefType=='16'">Requirment Not Clear</option>
+                
+                </select>
+            </td>
+            <td>
+                <select #mySelectDFSource (change)="selectSource(detailDef.idDef,mySelectDFSource.value)">
+                    <option value="0" [selected]="detailDef.DefSource=='0'">Testing</option>
+                    <option value="1" [selected]="detailDef.DefSource=='1'">POC</option>
+                    <option value="2" [selected]="detailDef.DefSource=='2'">Causal Analysis</option>
+                    <option value="3" [selected]="detailDef.DefSource=='3'">Random Check</option>
+                    <option value="4" [selected]="detailDef.DefSource=='4'">Change</option>
+                    <option value="5" [selected]="detailDef.DefSource=='5'">Improvement</option>
+                    <option value="6" [selected]="detailDef.DefSource=='6'">Review</option>
+                    <option value="7" [selected]="detailDef.DefSource=='7'">Customer</option>
+                </select>
+            </td>
+            <td>
+                <select #mySelectDFServerity (change)="selectServerity(detailDef.idDef,mySelectDFServerity.value)">
+                    <option value="0" [selected]="detailDef.DefServerity=='0'">Low</option>
+                    <option value="1" [selected]="detailDef.DefServerity=='1'">Medium</option>
+                    <option value="2" [selected]="detailDef.DefServerity=='2'">High</option>
+                    <option value="3" [selected]="detailDef.DefServerity=='3'">Suggestion</option>
+                    <option value="4" [selected]="detailDef.DefServerity=='4'">Critical</option>                    
+                </select>
+            </td>
+                <td *ngIf='detailDef.DefIncidentby == ""'>
+                    <select #mySelectDFIncident (change)="selectIncident(detailDef.idDef,mySelectDFIncident.value)">
+                        <option value="detailDef.DefIncidentby ==">-- Select Incident By --</option>
+                        <option *ngFor="let User of userData" value="{{User.idU}}" [selected]="detailDef.DefAssignto==User.idU">{{User.UName}}</option>
+                    </select>
+                </td>
+                <td *ngIf='detailDef.DefIncidentby != ""'>
+                    <ng-container *ngFor='let User of userData'>
+                        <ng-container *ngIf='User.idU == detailDef.DefIncidentby'>
+                            <input type="text" value="{{User.UName}}" readonly>
+                        </ng-container>
+                    </ng-container>
+                </td>
+                <td>
+                    <select #mySelectDFAssignto (change)="selectAssignto(detailDef.idDef,mySelectDFAssignto.value)">
+                        <option value="" [selected]="detailDef.DefAssignto==''">-- Select Assign to --</option>
+                        <option *ngFor="let User of userData" value="{{User.idU}}" [selected]="detailDef.DefAssignto==User.idU">{{User.UName}}</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" value="{{detailDef.DefUpdatedate}}" readonly>
+                </td>
+                <td>
+                    <ng-container *ngFor='let User of userData'>
+                        <ng-container *ngIf='User.idU == detailDef.DefUpdateby'>
+                            <input type="text" value="{{User.UName}}" readonly>
+                        </ng-container>
+                    </ng-container>
+                </td>
+            </tr>
+        </tbody>
+    </table> 
+    <a (click)="addRow()" class="pointer">+ Add Defect</a>   

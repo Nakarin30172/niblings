@@ -1,0 +1,62 @@
+<style>
+    tr.setheader {
+        color: #fff;
+        background: #37a0d3;
+    }
+    .table>thead>tr>th {
+        padding: 15px;
+        text-align: center;
+        font-size: 12.5px;
+    }
+    .pointer 
+    {
+        cursor: pointer;
+    }
+</style>
+
+<h2 mat-dialog-title><i class="glyphicon glyphicon-edit"></i> View and Edit Defect</h2>
+    <form [formGroup]="viewDefectForm">
+        <div class="form-group">
+            <label for="valDefectID">Defect ID</label>
+            <input type="text" class="form-control" formControlName="valDefectID" value="" readonly>
+        </div>
+        <div class="form-group">
+            <label for="valDefDes">Defect Description</label>
+            <textarea class="form-control" formControlName="valDefDes" rows="4" value=""></textarea>
+        </div>
+        <div class="form-group">
+            <label for="valDefExpR">Expected Result</label>
+            <textarea class="form-control" formControlName="valDefExpR" rows="4" value=""></textarea>
+        </div>
+        <div class="form-group">
+            <label for="valStatusDef">Status</label>
+            <select class="form-control" formControlName="valStatusDef">
+                <option value="0">Open</option>
+                <option value="1">Delivered to test</option>
+                <option value="2">Reject from test</option>
+                <option value="3">Closed</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="valDefectIncidentBy">Incident By</label>
+            <input type="hidden" class="form-control" formControlName="valDefectIncidentBy" value="">
+            <input type="text" class="form-control" formControlName="valDefectIncidentByShow" value="" readonly>
+        </div>
+        <div class="form-group">
+            <label for="valDefectAssignTo">Assign To</label>
+            <select class="form-control" formControlName="valDefectAssignTo">
+                <option *ngFor="let User of userData" value="{{User.idU}}">{{User.UName}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="valDefectUpdateDate">Update Date</label>
+            <input type="text" class="form-control" formControlName="valDefectUpdateDate" value="" readonly>
+        </div>
+        <div class="form-group">
+            <label for="valDefectUpdateBy">Update By</label>
+            <input type="hidden" class="form-control" formControlName="valDefectUpdateBy" value="">
+            <input type="text" class="form-control" formControlName="valDefectUpdateByShow" value="" readonly>
+        </div>
+        <button class="button" (click)="save(viewDefectForm.value)" class="btn btn-success">Save</button>
+        <button class="button" (click)="close()" class="btn btn-default">Close</button>
+    </form>

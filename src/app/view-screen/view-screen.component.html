@@ -1,0 +1,28 @@
+<div class="container space-header">
+    <div class="col-sm-12" style="text-align:center;">
+        <img src="{{mergeData.ScreenURL}}">
+    </div>
+    <div class="col-sm-3">
+    </div>
+    <div class="col-sm-6">
+        <form [formGroup]="viewScreenForm">
+            <div class="form-group">
+                <label for="valBRFR">Business Requirement ID - Functional Requirement ID</label>
+                <input class="form-control" formControlName="valBRFR" type="text" readonly value="">
+            </div>
+            <div class="form-group">
+                <label for="valScreenID">Screen Design ID</label>
+                <input class="form-control" formControlName="valScreenID" type="text" readonly value="">
+            </div>
+            <div class="form-group">
+                <label for="valScreenDes">Screen Design Description</label>
+                <textarea class="form-control" formControlName="valScreenDes" rows="4" value=""></textarea>
+            </div>
+            <div class="row" style="text-align: center">        
+            <button class="button" (click)="save(viewScreenForm.value)" class="btn btn-success" style="width: 80px; margin: 5px;">Save</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-3">
+    </div>
+</div>

@@ -1,0 +1,219 @@
+<style>
+    tr.setheader {
+        color: #fff;
+        background: #292929;
+    }
+
+    .table>thead>tr>th {
+        padding: 15px;
+        text-align: center;
+        font-size: 12.5px;
+    }
+
+    .custom-file-control:before {
+        content: "Browse";
+    }
+
+    .custom-file-control:after {
+        content: "Add files..";
+    }
+    .list-group{
+        margin-bottom: 5px;
+    }
+    .pointer 
+    {
+        cursor: pointer;
+    }
+</style>
+
+<div class="container space-header overtable">
+    <h3><i class="glyphicon glyphicon-indent-left"></i> Test Case</h3>
+    <br>
+    <h5 style="font-style: italic; color: #757575;">File lists click to download</h5>
+    <div class="list-group" *ngFor="let data of dataFiles">
+        <a href="{{data.url}}">{{data.name}}</a>
+    </div>
+    <!-- <a type="file" class="form-control" formControlName="valScreenURL" value="" accept="image/gif, image/jpeg, image/png" #uploadImg (change)="showUploadImg(uploadImg.files)"></a>
+    <br> -->
+    <table class="table table-hover table-bordered setFontSize">
+        <thead>
+            <tr class="setheader">
+                <th class="minwidth">Screen Design ID</th>
+                <th class="minwidth">BR - FR ID</th>
+                <th class="minwidth">Test Case ID</th>
+                <th class="minwidtharea">Test Case Description</th>
+                <th class="minwidth">Test Script ID</th>
+                <th class="minwidtharea">Test Script Description</th>
+                <th class="minwidtharea">Expected Result</th>
+                <th class="minwidth">Status Cycle 1</th>
+                <th class="minwidth">Status Cycle 2</th>
+                <th class="minwidth">Status Cycle 3</th>
+                <th class="minwidth">Defect Cycle 1</th>
+                <th class="minwidth">Defect Cycle 2</th>
+                <th class="minwidth">Defect Cycle 3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let detailTestcase of mergeData">
+                <td *ngIf='detailTestcase.idScreen != ""' id="{{detailTestcase.idScreen}}">
+                    <input type="text" value="SC_000{{detailTestcase.ScreenID}}" readonly>
+                </td>
+
+                <td *ngIf='detailTestcase.idScreen == ""' id="{{detailTestcase.idScreen}}">
+                    <select #mySelectScreen (change)="selectScreen(mySelectScreen.value,detailTestcase.idTC)">
+                        <option value="">-- Select Screen ID --</option>
+                        <option *ngFor="let SC of listSCSelect" value="{{SC}}">SC_000{{SC}}</option>
+                    </select>
+                </td>
+
+                <td *ngIf='detailTestcase.idFR != ""' id="{{detailTestcase.idFR}}">
+                    <input type="text" value="BR_000{{detailTestcase.BRID}}-FR_000{{detailTestcase.FRID}}" readonly>
+                </td>
+
+                <td *ngIf='detailTestcase.idFR == ""' id="{{detailTestcase.idFR}}">
+                    <ng-container *ngIf='detailTestcase.idScreen != ""'>
+                        <select #mySelectBRFR (change)="selectBRFR(mySelectBRFR.value,detailTestcase.idTC)">
+                            <option value="">-- Select BRID - FRID --</option>
+                            <option *ngFor="let BRFR of detailTestcase.listBRFR" value="{{BRFR.idFR}}">
+                                BR_000{{BRFR.BRID}}-FR_000{{BRFR.FRID}}</option>
+                        </select>
+                    </ng-container>
+                </td>
+
+                <td *ngIf='detailTestcase.TCID != ""' id="{{detailTestcase.idTC}}">
+                    <input type="text" value="TC_000{{detailTestcase.TCID}}" readonly>
+                </td>
+                <td *ngIf='detailTestcase.TCID == ""' id="{{detailTestcase.idTC}}">
+                    <ng-container *ngIf='detailTestcase.idFR != ""'>
+                        <select #mySelectTC
+                            (change)="selectTC(detailTestcase.idTC,detailTestcase.idTS,mySelectTC.value)">
+                            <option value="">-- Select TCID --</option>
+                            <option *ngFor="let TCID of listTCSelect" value="{{TCID}}">TC_000{{TCID}}</option>
+                            <option value="{{tcPlusData}}">TC_000{{tcPlusData}}</option>
+                        </select>
+                    </ng-container>
+                </td>
+
+                <td *ngIf='detailTestcase.TCID != ""' id="{{detailTestcase.idTC}}">
+                    <textarea #valueTCDes rows="4" value="{{detailTestcase.TCDes}}"
+                        (keyup)="saveTCDes(detailTestcase.idTC,valueTCDes.value)"></textarea>
+                </td>
+
+                <td *ngIf='detailTestcase.TCID == ""' id="{{detailTestcase.idTC}}">
+                    <textarea #valueTCDes rows="4" value="{{detailTestcase.TCDes}}" readonly></textarea>
+                </td>
+
+                <td *ngIf='detailTestcase.TSID != ""' id="{{detailTestcase.idTS}}">
+                    <input type="text" value="TS_000{{detailTestcase.TSID}}" readonly>
+                </td>
+
+                <td *ngIf='detailTestcase.TSID == ""' id="{{detailTestcase.idTS}}">
+                    <input type="text" value="" readonly>
+                </td>
+
+                <td *ngIf='detailTestcase.TSID != ""' id="{{detailTestcase.idTS}}">
+                    <textarea #valueTSDes rows="4" value="{{detailTestcase.TSDes}}"
+                        (keyup)="saveTSDes(detailTestcase.idTS,valueTSDes.value)"></textarea>
+                </td>
+
+                <td *ngIf='detailTestcase.TSID == ""' id="{{detailTestcase.idTS}}">
+                    <textarea rows="4" value="{{detailTestcase.TSDes}}" readonly></textarea>
+                </td>
+
+                <td *ngIf='detailTestcase.TSID != ""' id="{{detailTestcase.idTS}}">
+                    <textarea #valueTSExpResult rows="4" value="{{detailTestcase.TSE_Result}}"
+                        (keyup)="saveTSExpResult(detailTestcase.idTS,valueTSExpResult.value)"></textarea>
+                </td>
+
+                <td *ngIf='detailTestcase.TSID == ""' id="{{detailTestcase.idTS}}">
+                    <textarea rows="4" value="{{detailTestcase.TSE_Result}}" readonly></textarea>
+                </td>
+
+                <td>
+                    <ng-container *ngIf='detailTestcase.TSID != ""'>
+                        <select #mySelectTEScycle1
+                            (change)="selectStatusCycle(mySelectTEScycle1.value,detailTestcase.Cycle1.idTE)">
+                            <ng-container *ngIf="detailTestcase.Cycle1.TEStatus == '0'">
+                                <option value="" [selected]="detailTestcase.Cycle1.TEStatus == '0'"> No run
+                                </option>
+                            </ng-container>
+
+                            <option value="1" [selected]="detailTestcase.Cycle1.TEStatus == '1'">Passed</option>
+                            <option value="2" [selected]="detailTestcase.Cycle1.TEStatus == '2'">Failed</option>
+                            <option value="3" [selected]="detailTestcase.Cycle1.TEStatus == '3'">Stopper</option>
+                            <option value="4" [selected]="detailTestcase.Cycle1.TEStatus == '4'">Cancelled</option>
+                            <option value="5" [selected]="detailTestcase.Cycle1.TEStatus == '5'">Not Completed</option>
+                        </select>
+                    </ng-container>
+                </td>
+                <td>
+                    <ng-container *ngIf='detailTestcase.TSID != ""'>
+                        <select #mySelectTEScycle2
+                            (change)="selectStatusCycle(mySelectTEScycle2.value,detailTestcase.Cycle2.idTE)">
+                            <ng-container *ngIf="detailTestcase.Cycle2.TEStatus == '0'">
+                                <option value="" [selected]="detailTestcase.Cycle2.TEStatus == '0'"> No run
+                                </option>
+                            </ng-container>
+                            <option value="1" [selected]="detailTestcase.Cycle2.TEStatus == '1'">Passed</option>
+                            <option value="2" [selected]="detailTestcase.Cycle2.TEStatus == '2'">Failed</option>
+                            <option value="3" [selected]="detailTestcase.Cycle2.TEStatus == '3'">Stopper</option>
+                            <option value="4" [selected]="detailTestcase.Cycle2.TEStatus == '4'">Cancelled</option>
+                            <option value="5" [selected]="detailTestcase.Cycle2.TEStatus == '5'">Not Completed</option>
+                        </select>
+                    </ng-container>
+                </td>
+                <td>
+                    <ng-container *ngIf='detailTestcase.TSID != ""'>
+                        <select #mySelectTEScycle3
+                            (change)="selectStatusCycle(mySelectTEScycle3.value,detailTestcase.Cycle3.idTE)">
+                            <ng-container *ngIf="detailTestcase.Cycle3.TEStatus == '0'">
+                                <option value="" [selected]="detailTestcase.Cycle3.TEStatus == '0'"> No run
+                                </option>
+                            </ng-container>
+                            <option value="1" [selected]="detailTestcase.Cycle3.TEStatus == '1'">Passed</option>
+                            <option value="2" [selected]="detailTestcase.Cycle3.TEStatus == '2'">Failed</option>
+                            <option value="3" [selected]="detailTestcase.Cycle3.TEStatus == '3'">Stopper</option>
+                            <option value="4" [selected]="detailTestcase.Cycle3.TEStatus == '4'">Cancelled</option>
+                            <option value="5" [selected]="detailTestcase.Cycle3.TEStatus == '5'">Not Completed</option>
+                        </select>
+                    </ng-container>
+                </td>
+                <td>
+                    <div *ngFor="let listDef1 of detailTestcase.Cycle1.listDFDetail">
+                        <ng-container *ngIf="listDef1.DefID!=''">
+                            <a (click)="addViewDef(detailTestcase.Cycle1.idTE)" class="pointer">DF_000{{listDef1.DefID}}</a>
+                        </ng-container>
+                    </div>
+                    <ng-container *ngIf='detailTestcase.Cycle1.TEStatus == 2 || detailTestcase.Cycle1.TEStatus == 3'>
+                        <a (click)="addViewDef(detailTestcase.Cycle1.idTE)" class="pointer">+ Add Defect</a>
+                    </ng-container>
+                </td>
+                <td>
+                    <div *ngFor="let listDef2 of detailTestcase.Cycle2.listDFDetail">
+                        <ng-container *ngIf="listDef2.DefID!=''">
+                            <a (click)="addViewDef(detailTestcase.Cycle2.idTE)" class="pointer">DF_000{{listDef2.DefID}}</a>
+                        </ng-container>
+                    </div>
+                    <ng-container *ngIf='detailTestcase.Cycle2.TEStatus == 2 || detailTestcase.Cycle2.TEStatus == 3'>
+                        <a (click)="addViewDef(detailTestcase.Cycle2.idTE)" class="pointer">+ Add Defect</a>
+                    </ng-container>
+                </td>
+                <td>
+                    <div *ngFor="let listDef3 of detailTestcase.Cycle3.listDFDetail">
+                        <ng-container *ngIf="listDef3.DefID!=''">
+                            <a (click)="addViewDef(detailTestcase.Cycle3.idTE)" class="pointer">DF_000{{listDef3.DefID}}</a>
+                        </ng-container>
+                    </div>
+                    <ng-container *ngIf='detailTestcase.Cycle3.TEStatus == 2 || detailTestcase.Cycle3.TEStatus == 3'>
+                        <a (click)="addViewDef(detailTestcase.Cycle3.idTE)" class="pointer">+ Add Defect</a>
+                    </ng-container>
+                </td>
+        </tbody>
+    </table>
+    <a (click)="addRow()" class="pointer">+ Add Test Case</a>
+</div>
+<script>
+    function thisFileUpload() {
+        document.getElementById("file").click();
+    };
+</script>

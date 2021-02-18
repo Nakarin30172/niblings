@@ -1,0 +1,203 @@
+<style>
+    tr.setheader {
+        color: #fff;
+        background: #3f3f3f;
+    }
+    .table>thead>tr>th{
+        padding: 15px;
+        text-align: center;
+        font-size: 12.5px;
+    }
+    .pointer 
+    {
+        cursor: pointer;
+    }
+</style>
+
+<div class="container overtable">
+    <h3><i class="glyphicon glyphicon-list-alt"></i> Plan Test Execution</h3>
+    <br>
+    <div class="topnav">
+        <!-- <button mat-button (click)="openDialog()" class="btn btn-success"style="width: 80px; margin: 5px;" >Search</button>
+        <button mat-button *ngIf="isFilter" (click)="claerFilterCondition()" class="btn btn-danger"style="width: 80px; margin: 5px;" >Clear</button> -->
+    </div>
+    <br>
+    <select #mySelectCycle (change)="selectCycle(mySelectCycle.value)" style= "font-size: 15px; margin-right: 5px;" class="btn btn-default" >
+        <option value="1" [selected]="cycleSelected == '1'">Test Execution Cycle 1</option>
+        <option value="2" [selected]="cycleSelected == '2'">Test Execution Cycle 2</option>
+        <option value="3" [selected]="cycleSelected == '3'">Test Execution Cycle 3</option>
+    </select>
+    <button mat-button (click)="openDialog()" class="btn btn-primary"style="width: 80px; margin: 5px;" >Search</button>
+    <button mat-button *ngIf="isFilter" (click)="claerFilterCondition()" class="btn btn-danger"style="width: 80px; margin: 5px;" >Clear</button>
+    <!-- <mat-dialog-content>
+        <form [formGroup]="filterForm">
+            <label style="display:inline;">Test Case ID</label>
+            <input type="text" class="form-control" formControlName="TCID" matInput>
+            <br>
+            <label>Plan Date From</label>
+            <input type="date" formControlName="TEPdatefrom" matInput >
+            <ejs-datepicker id="fisrtdatepicker" #ejDatePicker [(value)]='value' width="230px"></ejs-datepicker>
+            <br>
+            <label>Plan Date To</label>
+             <input type="date" formControlName="TEPdateto" matInput>
+            <br>
+            <label>Actual Date From</label>
+            <input type="date" formControlName="TEAdatefrom" matInput>
+            <br>
+            <label>Actual Date To</label>
+            <input type="text" formControlName="TEAdateto" matInput>
+            <br>
+            <label>Assign To</label>
+            <input type="text" formControlName="TEAssignto" matInput>
+            <br>
+            <label>Status</label>
+            <input type="text" formControlName="statusCycle1" matInput>
+            <br>
+            <label>Test Execution(%)</label> -->
+            <!-- <input type="text" formControlName="percentCycle1" matInput>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center"> -->
+        <!-- <button mat-button [mat-dialog-close]="prepareData()" class="btn btn-primary" style="margin: 5px;" cdkFocusInitial>Search</button> -->
+    <br>
+
+    <h4>Test Execution Cycle {{cycleSelected}}</h4>
+    <br>
+    <table class="table table-hover table-bordered setFontSize">
+        <thead>
+            <tr class="setheader">
+                <th>Test Case ID</th> 
+                <th class="minwidtharea">Test Case Description</th> 
+                <th>Plan Date From</th> 
+                <th>Plan Date To</th> 
+                <th>Actual Date From</th> 
+                <th>Actual Date To</th> 
+                <th>Assign To</th> 
+                <th>Status</th> 
+                <th>Test Execution(%)</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let detailTestcaseCycle of mergeData">
+                <ng-container *ngIf="detailTestcaseCycle.TCID !=''">
+                    <td>
+                        <input type="text" value="TC_000{{detailTestcaseCycle.TCID}}" readonly>
+                    </td>
+                    <td>
+                        <textarea rows="4" value="{{detailTestcaseCycle.TCDes}}" readonly></textarea>
+                    </td>
+                    <ng-container *ngIf="'1' == cycleSelected">
+                        <td>
+                            <input #mySelectTCPDateFrom1 type="date" value="{{detailTestcaseCycle.Cycle1[0].TEPdatefrom}}" (change)="selectPDateFrom(detailTestcaseCycle.idTC,mySelectTCPDateFrom1.value)">
+                        </td>
+                        <td>
+                            <input #mySelectTCPDateTo1 type="date" value="{{detailTestcaseCycle.Cycle1[0].TEPdateto}}" (change)="selectPDateTo(detailTestcaseCycle.idTC,mySelectTCPDateTo1.value)">
+                        </td>
+                        <td>
+                            <input #mySelectTCADateFrom1 type="date" value="{{detailTestcaseCycle.Cycle1[0].TEAdatefrom}}" (change)="selectADateFrom(detailTestcaseCycle.idTC,mySelectTCADateFrom1.value)">
+                        </td>
+                        <td>
+                            <input #mySelectTCADateTo1 type="date" value="{{detailTestcaseCycle.Cycle1[0].TEAdateto}}" (change)="selectADateTo(detailTestcaseCycle.idTC,mySelectTCADateTo1.value)">
+                        </td>
+                        <td>
+                            <select #mySelectTCAssignto1 (change)="selectAssignto(detailTestcaseCycle.idTC,mySelectTCAssignto1.value)">
+                                <ng-container *ngIf="detailTestcaseCycle.Cycle1[0].TEAssignto==''">
+                                    <option value="" [selected]="detailTestcaseCycle.Cycle1[0].TEAssignto==''">-- Select Assign to --</option>
+                                </ng-container>
+                                <option *ngFor="let User of userData" value="{{User.idU}}" [selected]="detailTestcaseCycle.Cycle1[0].TEAssignto==User.idU">{{User.UName}}</option>
+                            </select>
+                        </td>
+                        <td *ngIf="detailTestcaseCycle.statusCycle1 == 0">
+                            <input type="text" value="no run" readonly>
+                        </td>
+                        <td *ngIf="detailTestcaseCycle.statusCycle1 == 1">
+                            <input type="text" value="Passed" readonly>
+                        </td>
+                        <td *ngIf="detailTestcaseCycle.statusCycle1 == 2">
+                            <input type="text" value="Failed" readonly>
+                        </td>
+                        <td>
+                            <input type="text" value="{{detailTestcaseCycle.percentCycle1}}%" readonly>
+                        </td>
+                    </ng-container>
+                    <ng-container *ngIf="'2' == cycleSelected">
+                        <td>
+                            <input #mySelectTCPDateFrom2 type="date" value="{{detailTestcaseCycle.Cycle2[0].TEPdatefrom}}" (change)="selectPDateFrom(detailTestcaseCycle.idTC,mySelectTCPDateFrom2.value)">
+                        </td>
+                        <td>
+                            <input #mySelectTCPDateTo2 type="date" value="{{detailTestcaseCycle.Cycle2[0].TEPdateto}}" (change)="selectPDateTo(detailTestcaseCycle.idTC,mySelectTCPDateTo2.value)">
+                        </td>
+                        <td>
+                            <input #mySelectTCADateFrom2 type="date" value="{{detailTestcaseCycle.Cycle2[0].TEAdatefrom}}" (change)="selectADateFrom(detailTestcaseCycle.idTC,mySelectTCADateFrom2.value)">
+                        </td>
+                        <td>
+                            <input #mySelectTCADateTo2 type="date" value="{{detailTestcaseCycle.Cycle2[0].TEAdateto}}" (change)="selectADateTo(detailTestcaseCycle.idTC,mySelectTCADateTo2.value)">
+                        </td>
+                        <td>
+                            <select #mySelectTCAssignto2 (change)="selectAssignto(detailTestcaseCycle.idTC,mySelectTCAssignto2.value)">
+                                <option value="" [selected]="detailTestcaseCycle.Cycle2[0].TEAssignto==''">-- Select Assign to --</option>
+                                <option *ngFor="let User of userData" value="{{User.idU}}" [selected]="detailTestcaseCycle.Cycle2[0].TEAssignto==User.idU">{{User.UName}}</option>
+                            </select>
+                        </td>
+                        <td *ngIf="detailTestcaseCycle.statusCycle2 == 0">
+                            <input type="text" value="no run" readonly>
+                        </td>
+                        <td *ngIf="detailTestcaseCycle.statusCycle2 == 1">
+                            <input type="text" value="Passed" readonly>
+                        </td>
+                        <td *ngIf="detailTestcaseCycle.statusCycle2 == 2">
+                            <input type="text" value="Failed" readonly>
+                        </td>
+                        <td>
+                            <input type="text" value="{{detailTestcaseCycle.percentCycle2}}%" readonly>
+                        </td>
+                    </ng-container>
+                    <ng-container *ngIf="'3' == cycleSelected">
+                        <td>
+                            <input #mySelectTCPDateFrom3 type="date" value="{{detailTestcaseCycle.Cycle3[0].TEPdatefrom}}" (change)="selectPDateFrom(detailTestcaseCycle.idTC,mySelectTCPDateFrom3.value)">
+                        </td>
+                        <td>
+                            <input #mySelectTCPDateTo3 type="date" value="{{detailTestcaseCycle.Cycle3[0].TEPdateto}}" (change)="selectPDateTo(detailTestcaseCycle.idTC,mySelectTCPDateTo3.value)">
+                        </td>
+                        <td>
+                            <input #mySelectTCADateFrom3 type="date" value="{{detailTestcaseCycle.Cycle3[0].TEAdatefrom}}" (change)="selectADateFrom(detailTestcaseCycle.idTC,mySelectTCADateFrom3.value)">
+                        </td>
+                        <td>
+                            <input #mySelectTCADateTo3 type="date" value="{{detailTestcaseCycle.Cycle3[0].TEAdateto}}" (change)="selectADateTo(detailTestcaseCycle.idTC,mySelectTCADateTo3.value)">
+                        </td>
+                        <td>
+                            <select #mySelectTCAssignto3 (change)="selectAssignto(detailTestcaseCycle.idTC,mySelectTCAssignto3.value)">
+                                <option value="" [selected]="detailTestcaseCycle.Cycle3[0].TEAssignto==''">-- Select Assign to --</option>
+                                <option *ngFor="let User of userData" value="{{User.idU}}" [selected]="detailTestcaseCycle.Cycle3[0].TEAssignto==User.idU">{{User.UName}}</option>
+                            </select>
+                        </td>
+                        <td *ngIf="detailTestcaseCycle.statusCycle3 == 0">
+                            <input type="text" value="no run" readonly>
+                        </td>
+                        <td *ngIf="detailTestcaseCycle.statusCycle3 == 1">
+                            <input type="text" value="Passed" readonly>
+                        </td>
+                        <td *ngIf="detailTestcaseCycle.statusCycle3 == 2">
+                            <input type="text" value="Failed" readonly>
+                        </td>
+                        <td *ngIf="detailTestcaseCycle.statusCycle3 == 3">
+                            <input type="text" value="Stopper" readonly>
+                        </td>
+                        <td *ngIf="detailTestcaseCycle.statusCycle3 == 4">
+                            <input type="text" value="Cancelled" readonly>
+                        </td>
+                        <td *ngIf="detailTestcaseCycle.statusCycle3 == 5">
+                            <input type="text" value="Not Completed" readonly>
+                        </td>
+                        <td *ngIf="detailTestcaseCycle.statusCycle3 == 6">
+                            <input type="text" value="No Status" readonly>
+                        </td>
+                        <td>
+                            <input type="text" value="{{detailTestcaseCycle.percentCycle3}}%" readonly>
+                        </td>
+                    </ng-container>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
+</div>

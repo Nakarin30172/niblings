@@ -1,0 +1,94 @@
+<!-- <style>   
+    .space-header {
+      background: rgb(255, 255, 255);
+      border-radius: 20px;
+      margin-top: 10%;
+      border: #37a0d3 3px solid;
+      padding-top: 10px;
+      padding-right: 50px;
+      padding-bottom: 10px;
+      padding-left: 50px;
+      width: auto;
+      }   
+    </style> -->
+
+<div class="container space-header">
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-4">
+        <h3><i class="glyphicon glyphicon-plus"></i> Add User</h3>
+        <form [formGroup]="addUserForm" (ngSubmit)="onSubmit(addUserForm.value)">
+            <br>
+            <div class="form-group">
+                <h5 for="email">
+                Email  
+                </h5>
+                <input type="email" formControlName="email" class="form-control">
+                <span *ngIf="addUserForm.controls['email'].invalid && (addUserForm.controls['email'].dirty || addUserForm.controls['email'].touched)"style="color:red;">
+                    Please enter the correct email, this email not valid.
+                </span>
+            </div>
+            <div class="form-group">
+                <h5 for="password">
+                Password  
+                </h5>
+                <input type="password" formControlName="password" class="form-control">
+                <span *ngIf="addUserForm.controls['password'].invalid && (addUserForm.controls['password'].dirty || addUserForm.controls['password'].touched)"style="color:red;">
+                    Please fill password field, field is invalid.
+                </span>
+            </div>
+            <div class="form-group">
+                <h5 for="fullname">
+                User Name  
+                </h5>
+                <input type="text" formControlName="fullname" class="form-control">
+                <span *ngIf="addUserForm.controls['fullname'].invalid && (addUserForm.controls['fullname'].dirty || addUserForm.controls['fullname'].touched)"style="color:red;">
+                    Please fill fullname field, field is invalid.
+                </span>
+            </div>
+            <div class="form-group">
+                <h5 for="description">
+                Description 
+                </h5>
+                <textarea class="form-control" formControlName="description" descriptionrows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <h5>
+                Position 
+                </h5>
+                <div>
+                    <h6>
+                    <input type="radio" value="Developer" formControlName="role">
+                    <span>&nbsp;&nbsp;Developer&nbsp;&nbsp;</span>
+                    </h6>
+                    <h6>
+                    <input type="radio" value="Tester" formControlName="role">
+                    <span>&nbsp;&nbsp;Tester&nbsp;&nbsp;</span>
+                    </h6>
+                    <!--
+                    <label>
+                    <input type="radio" value="BA" formControlName="role">
+                    <span>&nbsp;&nbsp;BA&nbsp;&nbsp;</span>
+                    </label>
+                    -->
+                    <h6>
+                    <input type="radio" value="Admin" formControlName="role">
+                    <span>&nbsp;&nbsp;Admin&nbsp;&nbsp;</span>
+                    </h6>
+                </div>
+            </div>
+            <div class="row" style="text-align: center">
+            <button class="button" type="submit" class="btn btn-primary" style="width: 80px; margin: 5px;">Sign up</button>
+            <button class="button" class="btn btn-danger" (click)="resetForm()" style="width: 80px; margin: 5px;">Reset</button>
+            <button class="button" class="btn btn-default" [routerLink]="['../manage-user']"style="width: 80px; margin: 5px;">Back</button>
+            </div>
+            <div>
+                <span *ngIf="addUserForm.invalid"style="color:red;">
+                Please fill all field.
+                </span>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-4">
+    </div>
+</div>

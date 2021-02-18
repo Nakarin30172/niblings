@@ -1,0 +1,48 @@
+<style>
+    tr.setheader {
+        color: #fff;
+        background: #37a0d3;
+    }
+    .table>thead>tr>th {
+        padding: 15px;
+        text-align: center;
+        font-size: 12.5px;
+    }
+    .pointer 
+    {
+        cursor: pointer;
+    }
+</style>
+<h2 mat-dialog-title><i class="glyphicon glyphicon-plus"></i> Add Screen Design</h2>
+    <!-- <div style="text-align:center"> -->
+        <!-- <img src="{{imgSelectScreen}}" style="width:120px; height:120;">
+    </div> -->
+    <form [formGroup]="addScreenForm">
+        <div class="form-group">
+            <label for="valBRFR">Business Requirement ID - Functional Requirement ID</label>
+            <input class="form-control" formControlName="valBRFR" type="text" readonly value="">
+        </div>
+        <div class="form-group">
+            <label for="valScreenID">Screen Design ID</label>
+            <select class="form-control" formControlName="valScreenID" #mySelectSC (change)="selectSC(mySelectSC.value)">
+                <option value="">-- Select ScreenID --</option>
+                <option *ngFor="let SC of listSCSelect" value="{{SC}}">SC_000{{SC}}</option>
+                <option value="{{ScreenPlusData}}">SC_000{{ScreenPlusData}}</option>
+            </select>
+        </div>
+        <div *ngIf='foundUrlStatus==false'>
+            <label for="valScreenURL">Upload Screen Design Image</label>
+            <input type="file" class="form-control" formControlName="valScreenURL" value="" accept="image/gif, image/jpeg, image/png, file/.xlsb, file/.xls" #uploadImg (change)="showUploadImg(uploadImg.files)">
+        </div>
+            <div style="text-align:center">
+                <img src="{{imgSelectScreen}}" style="width:400px; height:120;">
+            </div>
+        <div class="form-group">
+            <label for="valScreenDes">Screen Design Description</label>
+            <textarea class="form-control" formControlName="valScreenDes" rows="4" value=""></textarea>
+        </div>
+        <div class="row" style="text-align: center">
+        <button class="button" (click)="save(addScreenForm.value)" class="btn btn-primary" style="width: 80px; margin: 5px;">Save</button>
+        <button class="button" (click)="close()" class="btn btn-danger" style="width: 80px; margin: 5px;">Cancel</button>
+        </div>
+    </form>

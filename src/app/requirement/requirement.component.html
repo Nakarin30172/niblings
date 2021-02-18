@@ -1,0 +1,100 @@
+<style>
+    tr.setheader {
+        color: #fff;
+        background: #000000;
+    }
+    .table>thead>tr>th{
+        padding: 15px;
+        text-align: center;
+        font-size: 12.5px;
+    }
+    .pointer 
+    {
+        cursor: pointer;
+    }
+</style>
+
+<div class="container space-header overtable">
+    <body>
+    <h3><i class="glyphicon glyphicon-paperclip"></i> Requirement</h3>
+    <br>
+    <table class="table table-hover table-bordered setFontSize">
+        <thead>
+            <tr class="setheader">
+                <th>Business Requirement ID</th>
+                <th>Business Requirement Description</th>
+                <th>Functional Requirement ID</th> 
+                <th>Functional Requirement Description</th> 
+                <th>Screen Design ID</th> 
+                <th>Screen Design</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let detailReq of mergeData" >
+                <td *ngIf='detailReq.BRID != ""' id="{{detailReq.idBR}}">
+                    <input type="text" value="BR_000{{detailReq.BRID}}" readonly>
+                </td>   
+                <td *ngIf='detailReq.BRID == ""' id="{{detailReq.idBR}}">
+                    <select #mySelectBR (change)="selectBR(detailReq.idBR,mySelectBR.value,detailReq.idFR)">
+                        <option value="">-- Select BRID --</option>
+                        <option *ngFor="let BR of listBRSelect" value="{{BR}}">BR_000{{BR}}</option>
+                        <option value="{{brPlusData}}">BR_000{{brPlusData}}</option>
+                    </select>
+                </td>   
+
+                <td *ngIf='detailReq.BRID != ""' id="{{detailReq.idBR}}">
+                    <textarea #valueBRDes rows="4" value="{{detailReq.BRDes}}" (keyup)="saveBRDes(detailReq.idBR,valueBRDes.value)"></textarea>
+                </td>
+                <td *ngIf='detailReq.BRID == ""' id="{{detailReq.idBR}}">
+                    <textarea rows="4" value="{{detailReq.BRDes}}" readonly></textarea>
+                </td>
+
+                <td *ngIf='detailReq.FRID != ""' id="{{detailReq.idFR}}">
+                    <input type="text" value="FR_000{{detailReq.FRID}}" readonly>
+                </td>
+
+                <td *ngIf='detailReq.FRID == ""' id="{{detailReq.idFR}}">
+                    <input type="text" value="{{detailReq.FRID}}" readonly>
+                </td>
+                <!--
+                <td *ngIf='detailReq.FRID == ""' id="{{detailReq.idFR}}">
+                    <ng-container *ngIf='detailReq.BRID == ""'>
+                        <select>
+                            <option value="">-- Select FRID --</option>
+                        </select>
+                    </ng-container>
+                    <ng-container *ngIf='detailReq.BRID != ""'>
+                        <select #mySelectFR (change)="selectFR(detailReq.idFR,mySelectFR.value)">
+                            <option value="">-- Select FRID --</option>
+                            <ng-container *ngFor='let dropdownFR of listFRDropdown'>
+                                <ng-container *ngIf='dropdownFR.keyBR == detailReq.idBR'>
+                                    <option value="{{dropdownFR.FRdropdown}}">FR_000{{dropdownFR.FRdropdown}}</option>
+                                </ng-container>
+                            </ng-container>
+                        </select>
+                    </ng-container>
+                </td>   
+                -->
+                <td *ngIf='detailReq.FRID != ""' id="{{detailReq.idFR}}">
+                    <textarea #valueFRDes rows="4" value="{{detailReq.FRDes}}" (keyup)="saveFRDes(detailReq.idFR,valueFRDes.value)"></textarea>
+                </td>
+                <td *ngIf='detailReq.FRID == ""' id="{{detailReq.idFR}}">
+                    <textarea rows="4" value="{{detailReq.FRDes}}" readonly></textarea>
+                </td>
+
+                <td id="{{detailReq.idFR}}">
+                    <div *ngFor="let screen of detailReq.ListScreen">
+                        <a target="_blank" [routerLink]="['/viewScreen']" [queryParams]="{ idScreen : screen.idScreen , idFR : detailReq.idFR }" id="{{screen.idScreen}}">SC_000{{screen.ScreenID}}</a>
+                    </div>
+                </td>
+                <td id="{{detailReq.idFR}}">
+                        <div class="row" style="text-align: center">
+                            <input type="button" value="Import" class="btn btn-primary" style="width: 80px; margin: 5px;" (click)="showAddScreen(detailReq.idFR,detailReq.BRID,detailReq.FRID)">
+                        </div>  
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a (click)="addRow()" class="pointer">+ Add Requirement</a>
+</body>
+</div>
