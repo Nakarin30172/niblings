@@ -15,8 +15,8 @@
     <a [routerLink]="['../add-user']" class="btn btn-primary" style="width: 80px;">Add User</a>
     <br><br> -->
     <br /> 
-    <button type="button"(click)="myFunction1()" class="btn btn-primary btn-lg btn-block">Defect Sum </button>
-    <div id="myDIV1">
+    <button type="button"(click)="myFunction1()" class="btn btn-primary btn-lg btn-block"> Incident </button>
+    <div id="myDIV1"[hidden]="!edited">
         <table class="table table-hover table-bordered setFontSize">
             <thead>
                 <tr class="setheader">
@@ -54,6 +54,20 @@
                         <option value="1" [selected]="dfData.DefStatus=='1'">Delivered to test</option>
                         <option value="2" [selected]="dfData.DefStatus=='2'">Reject from test</option>
                         <option value="3" [selected]="dfData.DefStatus=='3'">Closed</option>
+                        <option value="4" [selected]="dfData.DefStatus=='4'">Assigned</option>
+                        <option value="5" [selected]="dfData.DefStatus=='5'">Processing</option>
+                        <option value="6" [selected]="dfData.DefStatus=='6'">Pending</option>
+                        <option value="7" [selected]="dfData.DefStatus=='7'">Fixed</option>
+                        <option value="8" [selected]="dfData.DefStatus=='8'">Rejected</option>
+                        <option value="9" [selected]="dfData.DefStatus=='9'">Processing test</option>
+                        <option value="10" [selected]="dfData.DefStatus=='10'">Passed Test</option>
+                        <option value="11" [selected]="dfData.DefStatus=='11'">Approved to Release Env</option>
+                        <option value="12" [selected]="dfData.DefStatus=='12'">A-Delivered-to-Release Env</option>
+                        <option value="13" [selected]="dfData.DefStatus=='13'">Cancelled</option>
+                        <option value="14" [selected]="dfData.DefStatus=='14'">Reject  From DEV</option>
+                        <option value="15" [selected]="dfData.DefStatus=='15'">Delivered-to-Customer</option>
+                        <option value="16" [selected]="dfData.DefStatus=='16'">Monitor</option>
+                        <option value="17" [selected]="dfData.DefStatus=='17'">Re Open</option>
                     </select>
                 </td>
                 <td>
@@ -114,8 +128,8 @@
     </div>
     <br /> 
     <div>
-    <button type="button"(click)="myFunction2()" class="btn btn-primary btn-lg btn-block">Defect Status Open </button>
-    <div id="myDIV2">
+    <button type="button"(click)="myFunction2()" class="btn btn-primary btn-lg btn-block">Incident By Tester </button>
+    <div id="myDIV2"[hidden]="!edited">
         <table class="table table-hover table-bordered setFontSize">
             <thead>
                 <tr class="setheader">
@@ -135,7 +149,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let dfData of dfData">  
+            <tr *ngFor="let dfData of dfData0">  
                 <td> DF_000{{dfData.DefID}}</td>
                 <td>{{dfData.DefTitle}}</td> 
                 <td>{{dfData.DefDes}}</td> 
@@ -153,6 +167,20 @@
                         <option value="1" [selected]="dfData.DefStatus=='1'">Delivered to test</option>
                         <option value="2" [selected]="dfData.DefStatus=='2'">Reject from test</option>
                         <option value="3" [selected]="dfData.DefStatus=='3'">Closed</option>
+                        <option value="4" [selected]="dfData.DefStatus=='4'">Assigned</option>
+                        <option value="5" [selected]="dfData.DefStatus=='5'">Processing</option>
+                        <option value="6" [selected]="dfData.DefStatus=='6'">Pending</option>
+                        <option value="7" [selected]="dfData.DefStatus=='7'">Fixed</option>
+                        <option value="8" [selected]="dfData.DefStatus=='8'">Rejected</option>
+                        <option value="9" [selected]="dfData.DefStatus=='9'">Processing test</option>
+                        <option value="10" [selected]="dfData.DefStatus=='10'">Passed Test</option>
+                        <option value="11" [selected]="dfData.DefStatus=='11'">Approved to Release Env</option>
+                        <option value="12" [selected]="dfData.DefStatus=='12'">A-Delivered-to-Release Env</option>
+                        <option value="13" [selected]="dfData.DefStatus=='13'">Cancelled</option>
+                        <option value="14" [selected]="dfData.DefStatus=='14'">Reject  From DEV</option>
+                        <option value="15" [selected]="dfData.DefStatus=='15'">Delivered-to-Customer</option>
+                        <option value="16" [selected]="dfData.DefStatus=='16'">Monitor</option>
+                        <option value="17" [selected]="dfData.DefStatus=='17'">Re Open</option>
                     </select>
                 </td>
                 <td>
@@ -213,8 +241,8 @@
        </div>
     </div>
     <br /> 
-    <button type="button"(click)="myFunction3()" class="btn btn-primary btn-lg btn-block">Defect Status Open </button>
-    <div id="myDIV3">
+    <button type="button"(click)="myFunction3()" class="btn btn-primary btn-lg btn-block">Incident By Dev </button>
+    <div id="myDIV3" [hidden]="!edited">
         <table class="table table-hover table-bordered setFontSize">
             <thead>
                 <tr class="setheader">
@@ -234,7 +262,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let dfData of dfData">  
+            <tr *ngFor="let dfData of dfData1">  
                 <td> DF_000{{dfData.DefID}}</td>
                 <td>{{dfData.DefTitle}}</td> 
                 <td>{{dfData.DefDes}}</td> 
@@ -252,6 +280,20 @@
                         <option value="1" [selected]="dfData.DefStatus=='1'">Delivered to test</option>
                         <option value="2" [selected]="dfData.DefStatus=='2'">Reject from test</option>
                         <option value="3" [selected]="dfData.DefStatus=='3'">Closed</option>
+                        <option value="4" [selected]="dfData.DefStatus=='4'">Assigned</option>
+                        <option value="5" [selected]="dfData.DefStatus=='5'">Processing</option>
+                        <option value="6" [selected]="dfData.DefStatus=='6'">Pending</option>
+                        <option value="7" [selected]="dfData.DefStatus=='7'">Fixed</option>
+                        <option value="8" [selected]="dfData.DefStatus=='8'">Rejected</option>
+                        <option value="9" [selected]="dfData.DefStatus=='9'">Processing test</option>
+                        <option value="10" [selected]="dfData.DefStatus=='10'">Passed Test</option>
+                        <option value="11" [selected]="dfData.DefStatus=='11'">Approved to Release Env</option>
+                        <option value="12" [selected]="dfData.DefStatus=='12'">A-Delivered-to-Release Env</option>
+                        <option value="13" [selected]="dfData.DefStatus=='13'">Cancelled</option>
+                        <option value="14" [selected]="dfData.DefStatus=='14'">Reject  From DEV</option>
+                        <option value="15" [selected]="dfData.DefStatus=='15'">Delivered-to-Customer</option>
+                        <option value="16" [selected]="dfData.DefStatus=='16'">Monitor</option>
+                        <option value="17" [selected]="dfData.DefStatus=='17'">Re Open</option>
                     </select>
                 </td>
                 <td>

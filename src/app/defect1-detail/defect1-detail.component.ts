@@ -34,6 +34,8 @@ export class Defect1DetailComponent implements OnInit {
   timeoutDefDes = null;
   te_defData = null;
   dfData = null;
+  dfData1 =null;
+  dfData0 =null;
   userData = null;
   dfPlusData=null;
   a=null;
@@ -42,12 +44,28 @@ export class Defect1DetailComponent implements OnInit {
   timeoutDefcom=null;
 
   ngOnInit() {
+    document.getElementById("myDIV3").style.display="none"
+
     this.afs.collection('TE_Defect').valueChanges().subscribe(resTE_DF=>{
       this.te_defData = resTE_DF;
     });
     this.afs.collection('Defect').valueChanges().subscribe(resDF=>{
       this.dfData = resDF;
       console.log(this.dfData)
+
+      this.dfData0 = this.dfData.filter(x => x.DefStatus == "1")
+      this.dfData1 = this.dfData.filter(x => x.DefStatus == "4" || x.DefStatus == "2"|| x.DefStatus == "7")
+
+      this.dfData.sort(function (x,y){
+        return parseInt(x.DefID)-parseInt(y.DefID)
+      })
+
+      this.dfData0.sort(function (x,y){
+        return parseInt(x.DefID)-parseInt(y.DefID)
+      })
+      this.dfData1.sort(function (x,y){
+        return parseInt(x.DefID)-parseInt(y.DefID)
+      })
       // this.getPlusDefectID();
       // this.checkUpdate();
     });
