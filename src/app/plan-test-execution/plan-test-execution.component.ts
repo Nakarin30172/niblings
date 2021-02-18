@@ -281,7 +281,6 @@ export class PlanTestExecutionComponent implements OnInit {
                 if (numstatus2 > 0) {
                   numStatusCycle3=2;              // status No Fail
                 }
-
                 if (numstatus3 > 0) {
                   numStatusCycle3=3;              // status  Stopper
                 }
