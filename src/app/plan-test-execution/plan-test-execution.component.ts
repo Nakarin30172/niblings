@@ -43,6 +43,14 @@ export class PlanTestExecutionComponent implements OnInit {
 
       }
     });
+    this.afs.collection('BR').valueChanges().subscribe(resBR=>{
+      this.brData = resBR;
+      this.mergeValue();
+    });
+    this.afs.collection('FR').valueChanges().subscribe(resFR=>{
+      this.frData = resFR;
+      this.mergeValue();
+    });
     this.afs.collection('TestExecution').valueChanges().subscribe(resTE => {
       this.TEData = resTE;
       if (this.isFilter === false) {
@@ -52,6 +60,8 @@ export class PlanTestExecutionComponent implements OnInit {
       }
     });
   }
+  brData = null;
+  frData = null;
 
   cycleSelected = "1";
   TCData = null;
@@ -120,7 +130,7 @@ export class PlanTestExecutionComponent implements OnInit {
   }
 
   mergeValue() {
-    if (this.TCData != null && this.TSData != null && this.TEData != null && this.userData != null) {
+    if (this.TCData != null && this.TSData != null && this.TEData != null && this.userData != null &&this.brData!=null && this.frData!=null ) {
       this.mergeData = this.buildData();
       this.tempMergeData = this.mergeData;
       console.log(this.mergeData);
@@ -141,17 +151,38 @@ export class PlanTestExecutionComponent implements OnInit {
       var numAllInCycle3 = 0;
       var numChangeInCycle3 = 0;
 
-      var numstatus0 = 0;
-      var numstatus1 = 0;
-      var numstatus2 = 0;
-      var numstatus3 = 0;
-      var numstatus4 = 0;
-      var numstatus5 = 0;
+      var numstatus00 = 0;
+      var numstatus01 = 0;
+      var numstatus02 = 0;
+      var numstatus03 = 0;
+      var numstatus04 = 0;
+      var numstatus05 = 0;
 
+      var numstatus10 = 0;
+      var numstatus11 = 0;
+      var numstatus12 = 0;
+      var numstatus13 = 0;
+      var numstatus14 = 0;
+      var numstatus15 = 0;
+      
+      var numstatus20 = 0;
+      var numstatus21 = 0;
+      var numstatus22 = 0;
+      var numstatus23 = 0;
+      var numstatus24 = 0;
+      var numstatus25 = 0;
 
+      var sumAllstatus1 = 0;
+      var sumAllstatus2 = 0;
+      var sumAllstatus3 = 0;
       var numStatusCycle1 = 0;
       var numStatusCycle2 = 0;
       var numStatusCycle3 = 0;
+
+      var Finish1 = 0;
+      var Finish2 = 0;
+      var Finish3 = 0;
+
       for (let j = 0; j < this.TSData.length; j++) {
         if (dataMerge[i].idTC == this.TSData[j].idTC) {
           for (let n = 0; n < this.TEData.length; n++) {
@@ -168,17 +199,67 @@ export class PlanTestExecutionComponent implements OnInit {
                   TEPdateto: this.TEData[n].TEPdateto,
                   Cycle: this.TEData[n].Cycle
                 });
-                if (this.TEData[n].TEStatus != "0") {
-                  numChangeInCycle1 = numChangeInCycle1 + 1;
-                  if (numStatusCycle1 != 2) {
-                    if (this.TEData[n].TEStatus == "1") {
-                      numStatusCycle1 = 1;
-                    } else {
-                      numStatusCycle1 = 2;
-                    }
-                  }
+                if (this.TEData[n].TEStatus == 0) {
+                  numstatus00 = numstatus00 + 1;
+                  numStatusCycle1=0;                       // No Run
+                  console.log(numstatus00)
+                  console.log("status0",numStatusCycle1)
                 }
-                numAllInCycle1 = numAllInCycle1 + 1;
+
+                if(this.TEData[n].TEStatus == 1) {
+                  numstatus01 = numstatus01 + 1;
+                  numStatusCycle1=1;                      // status Passed
+                  console.log(numstatus01)
+                  console.log("status1",numStatusCycle1)
+                }
+                if(this.TEData[n].TEStatus == 2) {
+                  numstatus02 = numstatus02 + 1;
+                  console.log(numstatus02)
+                }
+                if(this.TEData[n].TEStatus == 3) {
+                  numstatus03 = numstatus03 + 1;
+                  console.log(numstatus03)
+                }
+                if(this.TEData[n].TEStatus == 4) {
+                  numstatus04 = numstatus04 + 1;
+                  numStatusCycle1=4;                 // status Cancelled
+                  console.log(numstatus04)
+                }
+                if(this.TEData[n].TEStatus == 5) {
+                  numstatus05 = numstatus05 + 1;   
+                  console.log(numstatus05)
+                }
+                // else {
+                //   numStatusCycle3=6;                 // status No Status
+                // }
+
+
+                if (numstatus02 > 0) {
+                  numStatusCycle1=2;              // status No Fail
+                }
+                if (numstatus03 > 0) {
+                  numStatusCycle1=3;              // status  Stopper
+                }
+                
+                if (numstatus05 > 0) {
+                  numStatusCycle1=5;              // status  Not Completed
+                }
+
+                if (numstatus05 > 0 && numstatus00 > 0 ) {
+                  numStatusCycle1=5;              // status  Not Completed
+                } 
+                
+                if (numstatus04 > 0 && numstatus00 > 0 ) {
+                  numStatusCycle1=0;              // status  Not run
+                } 
+                
+                if (numstatus04 > 0 && numstatus01 > 0 ) {
+                  numStatusCycle1=1;              // status  passed
+                } 
+                Finish1 = numstatus02+numstatus03+numstatus05;
+                sumAllstatus1     = numstatus01+numstatus02+numstatus03+numstatus05+numstatus00+numstatus04;
+                numChangeInCycle1 = numstatus01+numstatus02+numstatus03+numstatus05;
+                numAllInCycle1    = numstatus01+numstatus02+numstatus03+numstatus05+numstatus00+numstatus04;
                 /*
                 this.TSData[j].Cycle1 = {
                   idTE: this.TEData[n].idTE,
@@ -192,7 +273,8 @@ export class PlanTestExecutionComponent implements OnInit {
                   Cycle: this.TEData[n].Cycle
                 }
                 */
-              } else if (this.TEData[n].Cycle == "2") {
+              }
+               else if (this.TEData[n].Cycle == "2") {
                 dataMerge[i].Cycle2.push({
                   idTE: this.TEData[n].idTE,
                   idTS: this.TEData[n].idTS,
@@ -204,18 +286,67 @@ export class PlanTestExecutionComponent implements OnInit {
                   TEPdateto: this.TEData[n].TEPdateto,
                   Cycle: this.TEData[n].Cycle
                 });
-                if (this.TEData[n].TEStatus != 0) {
-                  numChangeInCycle2 = numChangeInCycle2 + 1;
-                  if (numStatusCycle2 != 2) {
-                    if (this.TEData[n].TEStatus == "1") {
-                      numStatusCycle2 = 1;
-                    } 
-                    else {
-                      numStatusCycle2 = 2;
-                    }
-                  }
+                if (this.TEData[n].TEStatus == 0) {
+                  numstatus10 = numstatus10 + 1;
+                  numStatusCycle2=0;                       // No Run
+                  console.log(numstatus10)
+                  console.log("status0",numStatusCycle2)
                 }
-                numAllInCycle2 = numAllInCycle2 + 1;
+
+                if(this.TEData[n].TEStatus == 1) {
+                  numstatus11 = numstatus11 + 1;
+                  numStatusCycle2=1;                      // status Passed
+                  console.log(numstatus11)
+                  console.log("status1",numStatusCycle2)
+                }
+                if(this.TEData[n].TEStatus == 2) {
+                  numstatus12 = numstatus12 + 1;
+                  console.log(numstatus12)
+                }
+                if(this.TEData[n].TEStatus == 3) {
+                  numstatus13 = numstatus13 + 1;
+                  console.log(numstatus13)
+                }
+                if(this.TEData[n].TEStatus == 4) {
+                  numstatus14 = numstatus14 + 1;
+                  numStatusCycle2=4;                 // status Cancelled
+                  console.log(numstatus14)
+                }
+                if(this.TEData[n].TEStatus == 5) {
+                  numstatus15 = numstatus15 + 1;   
+                  console.log(numstatus15)
+                }
+                // else {
+                //   numStatusCycle3=6;                 // status No Status
+                // }
+
+
+                if (numstatus12 > 0) {
+                  numStatusCycle2=2;              // status No Fail
+                }
+                if (numstatus13 > 0) {
+                  numStatusCycle2=3;              // status  Stopper
+                }
+                
+                if (numstatus15 > 0) {
+                  numStatusCycle2=5;              // status  Not Completed
+                }
+
+                if (numstatus15 > 0 && numstatus10 > 0 ) {
+                  numStatusCycle2=5;              // status  Not Completed
+                } 
+                
+                if (numstatus14 > 0 && numstatus10 > 0 ) {
+                  numStatusCycle2=0;              // status  Not run
+                } 
+                
+                if (numstatus14 > 0 && numstatus11 > 0 ) {
+                  numStatusCycle2=1;              // status  passed
+                } 
+                Finish2 = numstatus12+numstatus13+numstatus15;
+                sumAllstatus2     = numstatus11+numstatus12+numstatus13+numstatus15+numstatus10+numstatus14;
+                numChangeInCycle2 = numstatus11+numstatus12+numstatus13+numstatus15;
+                numAllInCycle2    = numstatus11+numstatus12+numstatus13+numstatus15+numstatus10+numstatus14;
                 /*
                 this.TSData[j].Cycle2 = {
                   idTE: this.TEData[n].idTE,
@@ -244,66 +375,71 @@ export class PlanTestExecutionComponent implements OnInit {
                 });
 
                 if (this.TEData[n].TEStatus == 0) {
-                  numstatus0 = numstatus0 + 1;
+                  numstatus20 = numstatus20 + 1;
                   numStatusCycle3=0;                       // No Run
-                  console.log(numstatus0)
+                  console.log("status0",numstatus20)
                   console.log("status0",numStatusCycle3)
                 }
 
                 if(this.TEData[n].TEStatus == 1) {
-                  numstatus1 = numstatus1 + 1;
+                  numstatus21 = numstatus21 + 1;
                   numStatusCycle3=1;                      // status Passed
-                  console.log(numstatus1)
+                  console.log("status1",numstatus21)
                   console.log("status1",numStatusCycle3)
                 }
                 if(this.TEData[n].TEStatus == 2) {
-                  numstatus2 = numstatus2 + 1;
-                  console.log(numstatus2)
+                  numstatus22 = numstatus22 + 1;
+                  console.log("status2",numstatus22)
+                  console.log("status2",numStatusCycle3)
                 }
                 if(this.TEData[n].TEStatus == 3) {
-                  numstatus3 = numstatus3 + 1;
-                  console.log(numstatus3)
+                  numstatus23 = numstatus23 + 1;
+                  console.log("status3",numstatus23)
+                  console.log("status3",numStatusCycle3)
                 }
                 if(this.TEData[n].TEStatus == 4) {
-                  numstatus4 = numstatus4 + 1;
+                  numstatus24 = numstatus24 + 1;
                   numStatusCycle3=4;                 // status Cancelled
-                  console.log(numstatus4)
+                  console.log("status4",numstatus24)
+                  console.log("status4",numStatusCycle3)
                 }
                 if(this.TEData[n].TEStatus == 5) {
-                  numstatus5 = numstatus5 + 1;   
-                  console.log(numstatus5)
+                  numstatus25 = numstatus25 + 1;   
+                  console.log("status5",numstatus25)
+                  console.log("status5",numStatusCycle3)
                 }
                 // else {
                 //   numStatusCycle3=6;                 // status No Status
                 // }
 
 
-                if (numstatus2 > 0) {
+                if (numstatus22 > 0) {
                   numStatusCycle3=2;              // status No Fail
                 }
-                if (numstatus3 > 0) {
+                if (numstatus23 > 0) {
                   numStatusCycle3=3;              // status  Stopper
                 }
                 
-                if (numstatus5 > 0) {
+                if (numstatus25 > 0) {
                   numStatusCycle3=5;              // status  Not Completed
                 }
 
-                if (numstatus5 > 0 && numstatus0 > 0 ) {
+                if (numstatus25 > 0 && numstatus20 > 0 ) {
                   numStatusCycle3=5;              // status  Not Completed
                 } 
                 
-                if (numstatus4 > 0 && numstatus0 > 0 ) {
+                if (numstatus24 > 0 && numstatus20 > 0 ) {
                   numStatusCycle3=0;              // status  Not run
                 } 
                 
-                if (numstatus4 > 0 && numstatus1 > 0 ) {
+                if (numstatus24 > 0 && numstatus21 > 0 ) {
                   numStatusCycle3=1;              // status  passed
                 } 
+                Finish3 = numstatus22+numstatus23+numstatus25;
+                sumAllstatus3     = numstatus21+numstatus22+numstatus23+numstatus25+numstatus20+numstatus24;
+                numChangeInCycle3 = numstatus21+numstatus22+numstatus23+numstatus25;
+                numAllInCycle3    = numstatus21+numstatus22+numstatus23+numstatus25+numstatus20+numstatus24;
 
-
-                numChangeInCycle3 = numstatus1+numstatus2+numstatus3+numstatus4+numstatus5
-                numAllInCycle3    = numstatus1+numstatus2+numstatus3+numstatus4+numstatus5+numstatus0
                 // if (numstatus5 > 0) {
                 //   numStatusCycle3=5;              // status  Not Completed
                 // }
@@ -342,6 +478,34 @@ export class PlanTestExecutionComponent implements OnInit {
       dataMerge[i].statusCycle1 = numStatusCycle1;
       dataMerge[i].statusCycle2 = numStatusCycle2;
       dataMerge[i].statusCycle3 = numStatusCycle3;
+      dataMerge[i].sumAllstatus1 = sumAllstatus1;      
+      dataMerge[i].sumAllstatus2 = sumAllstatus2;      
+      dataMerge[i].sumAllstatus3 = sumAllstatus3;      
+      dataMerge[i].numstatus00 = numstatus00;   
+      dataMerge[i].numstatus01 = numstatus01;
+      dataMerge[i].numstatus02 = numstatus02;        
+      dataMerge[i].numstatus03 = numstatus03;        
+      dataMerge[i].numstatus04 = numstatus04;  
+      dataMerge[i].numstatus05 = numstatus05; 
+
+      dataMerge[i].numstatus10 = numstatus10;   
+      dataMerge[i].numstatus11 = numstatus11;
+      dataMerge[i].numstatus12 = numstatus12;        
+      dataMerge[i].numstatus13 = numstatus13;        
+      dataMerge[i].numstatus14 = numstatus14;  
+      dataMerge[i].numstatus15 = numstatus15; 
+
+      dataMerge[i].numstatus20 = numstatus20;   
+      dataMerge[i].numstatus21 = numstatus21;
+      dataMerge[i].numstatus22 = numstatus22;        
+      dataMerge[i].numstatus23 = numstatus23;        
+      dataMerge[i].numstatus24 = numstatus24;  
+      dataMerge[i].numstatus25 = numstatus25;    
+
+      dataMerge[i].Finish3 = Finish3;        
+      dataMerge[i].Finish2 = Finish2;  
+      dataMerge[i].Finish1 = Finish1;    
+
       //dataMerge[i].listTSTE = listTSTE;
     }
     /*
