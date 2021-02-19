@@ -49,6 +49,7 @@ export class ReqTraceabilityMatrixComponent implements OnInit {
                 BRID: this.brData[k].BRID,
                 FRID: this.frData[j].FRID,
                 TCID: this.TCData[i].TCID
+                
               });
               break;
             }
