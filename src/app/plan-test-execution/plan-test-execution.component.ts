@@ -144,11 +144,11 @@ export class PlanTestExecutionComponent implements OnInit {
       dataMerge[i].Cycle1 = [];
       dataMerge[i].Cycle2 = [];
       dataMerge[i].Cycle3 = [];
-      var numAllInCycle1 = 0;
+      var numAllInCycle1    = 0;
       var numChangeInCycle1 = 0;
-      var numAllInCycle2 = 0;
+      var numAllInCycle2    = 0;
       var numChangeInCycle2 = 0;
-      var numAllInCycle3 = 0;
+      var numAllInCycle3    = 0;
       var numChangeInCycle3 = 0;
 
       var numstatus00 = 0;
@@ -258,7 +258,7 @@ export class PlanTestExecutionComponent implements OnInit {
                 } 
                 Finish1 = numstatus02+numstatus03+numstatus05;
                 sumAllstatus1     = numstatus01+numstatus02+numstatus03+numstatus05+numstatus00+numstatus04;
-                numChangeInCycle1 = numstatus01+numstatus02+numstatus03+numstatus05;
+                numChangeInCycle1 = numstatus01+numstatus02+numstatus03+numstatus05+numstatus04;
                 numAllInCycle1    = numstatus01+numstatus02+numstatus03+numstatus05+numstatus00+numstatus04;
                 /*
                 this.TSData[j].Cycle1 = {
@@ -345,7 +345,7 @@ export class PlanTestExecutionComponent implements OnInit {
                 } 
                 Finish2 = numstatus12+numstatus13+numstatus15;
                 sumAllstatus2     = numstatus11+numstatus12+numstatus13+numstatus15+numstatus10+numstatus14;
-                numChangeInCycle2 = numstatus11+numstatus12+numstatus13+numstatus15;
+                numChangeInCycle2 = numstatus11+numstatus12+numstatus13+numstatus15+numstatus14;
                 numAllInCycle2    = numstatus11+numstatus12+numstatus13+numstatus15+numstatus10+numstatus14;
                 /*
                 this.TSData[j].Cycle2 = {
@@ -437,7 +437,7 @@ export class PlanTestExecutionComponent implements OnInit {
                 } 
                 Finish3 = numstatus22+numstatus23+numstatus25;
                 sumAllstatus3     = numstatus21+numstatus22+numstatus23+numstatus25+numstatus20+numstatus24;
-                numChangeInCycle3 = numstatus21+numstatus22+numstatus23+numstatus25;
+                numChangeInCycle3 = numstatus21+numstatus22+numstatus23+numstatus25+numstatus24;
                 numAllInCycle3    = numstatus21+numstatus22+numstatus23+numstatus25+numstatus20+numstatus24;
 
                 // if (numstatus5 > 0) {
