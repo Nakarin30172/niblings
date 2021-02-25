@@ -3,12 +3,18 @@
         tr.setheader {
             color: #fff;
             background: #000000;
+            
         }
         .table>thead>tr>th{
             padding: 15px;
             text-align: center;
             font-size: 12.5px;
         }
+        .sizeOfTable{
+            height: 500px;
+            overflow:scroll;
+        }
+
     </style>
     <h3><i class="glyphicon glyphicon-user"></i> List Defect</h3>
     <!-- <br>
@@ -16,7 +22,7 @@
     <br><br> -->
     <br /> 
     <button type="button"(click)="myFunction1()" class="btn btn-primary btn-lg btn-block"> Incident </button>
-    <div id="myDIV1"[hidden]="!edited">
+    <div class ="sizeOfTable" id="myDIV1"[hidden]="!edited">
         <table class="table table-hover table-bordered setFontSize">
             <thead>
                 <tr class="setheader">
@@ -28,9 +34,8 @@
                 <th style="width:300px;">Assign to </th>               
                 <th style="width:300px;">Status</th>
                 <th style="width:300px;">Defect Type</th>                
-                <th style="width:300px;">DefectSource<</th>
+                <th style="width:300px;">DefectSource</th>
                 <th style="width:300px;">Serverity</th>
-
                 <th style="width:300px;">Update Date</th>
                 <th style="width:300px;">Update By</th>               
             </tr>
@@ -41,7 +46,9 @@
                 <td>{{dfData.DefTitle}}</td> 
                 <td>{{dfData.DefDes}}</td> 
                 <td>{{dfData.DefE_Result}}</td>
-                <td>{{dfData.Defcom}}</td>              
+                <td>
+                    <textarea #valueDefcom rows="4" value="{{detailDef.Defcom}}" (keyup)="saveDefcom(detailDef.idDef,valueDefcom.value)"style="width:200px;"></textarea>
+                </td>       
                 <td>
                     <select #mySelectDFAssignto (change)="selectAssignto(dfData.idDef,mySelectDFAssignto.value)">
                         <option value="" [selected]="dfData.DefAssignto==''">-- Select Assign to --</option>
@@ -129,7 +136,7 @@
     <br /> 
     <div>
     <button type="button"(click)="myFunction2()" class="btn btn-primary btn-lg btn-block">Incident By Tester </button>
-    <div id="myDIV2"[hidden]="!edited">
+    <div class ="sizeOfTable" id="myDIV2"[hidden]="!edited">
         <table class="table table-hover table-bordered setFontSize">
             <thead>
                 <tr class="setheader">
@@ -154,7 +161,9 @@
                 <td>{{dfData.DefTitle}}</td> 
                 <td>{{dfData.DefDes}}</td> 
                 <td>{{dfData.DefE_Result}}</td>
-                <td>{{dfData.Defcom}}</td>              
+                <td>
+                    <textarea #valueDefcom rows="4" value="{{detailDef.Defcom}}" (keyup)="saveDefcom(detailDef.idDef,valueDefcom.value)"style="width:200px;"></textarea>
+                </td>                  
                 <td>
                     <select #mySelectDFAssignto (change)="selectAssignto(dfData.idDef,mySelectDFAssignto.value)">
                         <option value="" [selected]="dfData.DefAssignto==''">-- Select Assign to --</option>
@@ -242,7 +251,7 @@
     </div>
     <br /> 
     <button type="button"(click)="myFunction3()" class="btn btn-primary btn-lg btn-block">Incident By Dev </button>
-    <div id="myDIV3" [hidden]="!edited">
+    <div class ="sizeOfTable" id="myDIV3" [hidden]="!edited">
         <table class="table table-hover table-bordered setFontSize">
             <thead>
                 <tr class="setheader">
@@ -267,7 +276,9 @@
                 <td>{{dfData.DefTitle}}</td> 
                 <td>{{dfData.DefDes}}</td> 
                 <td>{{dfData.DefE_Result}}</td>
-                <td>{{dfData.Defcom}}</td>              
+                <td>
+                    <textarea #valueDefcom rows="4" value="{{detailDef.Defcom}}" (keyup)="saveDefcom(detailDef.idDef,valueDefcom.value)"style="width:200px;"></textarea>
+                </td>               
                 <td>
                     <select #mySelectDFAssignto (change)="selectAssignto(dfData.idDef,mySelectDFAssignto.value)">
                         <option value="" [selected]="dfData.DefAssignto==''">-- Select Assign to --</option>
