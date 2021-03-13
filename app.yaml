@@ -1,0 +1,22 @@
+runtime: python27
+api_version: 1
+threadsafe: yes
+instance_class: f1
+
+handlers:
+  - url: /(.*\.[A-Za-z0-9]{1,4})$
+    static_files: dist/SupportTestingSystem/\1
+    upload: dist/SupportTestingSystem/(.*\.[A-Za-z0-9]{1,4})$
+  - url: /(.*)$
+    static_files: dist/SupportTestingSystem/index.html
+    upload: dist/SupportTestingSystem/index.html
+
+skip_files:
+  - e2e/
+  - node_modules/
+  - src/
+  - ^(.*/)?\..*$
+  - ^(.*/)?.*\.json$
+  - ^(.*/)?.*\.md$
+  - ^(.*/)?.*\.yaml$
+  - ^LICENSE

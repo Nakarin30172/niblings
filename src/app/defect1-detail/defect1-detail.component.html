@@ -22,7 +22,7 @@
     <br><br> -->
     <br /> 
     <button type="button"(click)="myFunction1()" class="btn btn-primary btn-lg btn-block"> Incident </button>
-    <div class ="sizeOfTable" id="myDIV1"[hidden]="!edited">
+    <div class ="sizeOfTable" id="myDIV1"[hidden]>
         <table class="table table-hover table-bordered setFontSize">
             <thead>
                 <tr class="setheader">
@@ -47,7 +47,7 @@
                 <td>{{dfData.DefDes}}</td> 
                 <td>{{dfData.DefE_Result}}</td>
                 <td>
-                    <textarea #valueDefcom rows="4" value="{{detailDef.Defcom}}" (keyup)="saveDefcom(detailDef.idDef,valueDefcom.value)"style="width:200px;"></textarea>
+                    <textarea #valueDefcom rows="4" value="{{dfData.Defcom}}" (keyup)="saveDefcom(dfData.idDef,valueDefcom.value)"style="width:200px;"></textarea>
                 </td>       
                 <td>
                     <select #mySelectDFAssignto (change)="selectAssignto(dfData.idDef,mySelectDFAssignto.value)">
@@ -136,7 +136,7 @@
     <br /> 
     <div>
     <button type="button"(click)="myFunction2()" class="btn btn-primary btn-lg btn-block">Incident By Tester </button>
-    <div class ="sizeOfTable" id="myDIV2"[hidden]="!edited">
+    <div class ="sizeOfTable" id="myDIV2"[hidden]>
         <table class="table table-hover table-bordered setFontSize">
             <thead>
                 <tr class="setheader">
@@ -162,7 +162,7 @@
                 <td>{{dfData.DefDes}}</td> 
                 <td>{{dfData.DefE_Result}}</td>
                 <td>
-                    <textarea #valueDefcom rows="4" value="{{detailDef.Defcom}}" (keyup)="saveDefcom(detailDef.idDef,valueDefcom.value)"style="width:200px;"></textarea>
+                    <textarea #valueDefcom rows="4" value="{{dfData.Defcom}}" (keyup)="saveDefcom(dfData.idDef,valueDefcom.value)"style="width:200px;"></textarea>
                 </td>                  
                 <td>
                     <select #mySelectDFAssignto (change)="selectAssignto(dfData.idDef,mySelectDFAssignto.value)">
@@ -251,7 +251,7 @@
     </div>
     <br /> 
     <button type="button"(click)="myFunction3()" class="btn btn-primary btn-lg btn-block">Incident By Dev </button>
-    <div class ="sizeOfTable" id="myDIV3" [hidden]="!edited">
+    <div class ="sizeOfTable" id="myDIV3" [hidden]>
         <table class="table table-hover table-bordered setFontSize">
             <thead>
                 <tr class="setheader">
@@ -277,7 +277,7 @@
                 <td>{{dfData.DefDes}}</td> 
                 <td>{{dfData.DefE_Result}}</td>
                 <td>
-                    <textarea #valueDefcom rows="4" value="{{detailDef.Defcom}}" (keyup)="saveDefcom(detailDef.idDef,valueDefcom.value)"style="width:200px;"></textarea>
+                    <textarea #valueDefcom rows="4" value="{{dfData.Defcom}}" (keyup)="saveDefcom(dfData.idDef,valueDefcom.value)"style="width:200px;"></textarea>
                 </td>               
                 <td>
                     <select #mySelectDFAssignto (change)="selectAssignto(dfData.idDef,mySelectDFAssignto.value)">
