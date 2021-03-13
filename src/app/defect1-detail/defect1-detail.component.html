@@ -19,7 +19,242 @@
     <h3><i class="glyphicon glyphicon-user"></i> List Defect</h3>
     <!-- <br>
     <a [routerLink]="['../add-user']" class="btn btn-primary" style="width: 80px;">Add User</a>
+
     <br><br> -->
+    <br /> 
+
+    
+    <button type="button"(click)="myFunction2()" class="btn btn-primary btn-lg btn-block">Incident By Tester </button>
+    <div class ="sizeOfTable" id="myDIV2"[hidden]="!edited">
+        <table class="table table-hover table-bordered setFontSize">
+            <thead>
+                <tr class="setheader">
+                <th style="width:300px;">Defect ID</th> 
+                <th style="width:300px;">Title</th>         
+                <th style="width:300px;">Defect Description</th>
+                <th style="width:300px;">Expected Result</th>
+                <th style="width:300px;">Comment </th>     
+                <th style="width:300px;">Assign to </th>               
+                <th style="width:300px;">Status</th>
+                <th style="width:300px;">Defect Type</th>                
+                <th style="width:300px;">DefectSource<</th>
+                <th style="width:300px;">Serverity</th>
+
+                <th style="width:300px;">Update Date</th>
+                <th style="width:300px;">Update By</th>               
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let dfData of dfData0">  
+                <td> DF_000{{dfData.DefID}}</td>
+                <td>{{dfData.DefTitle}}</td> 
+                <td>{{dfData.DefDes}}</td> 
+                <td>{{dfData.DefE_Result}}</td>
+                <td>
+                    <textarea #valueDefcom rows="4" value="{{dfData.Defcom}}" (keyup)="saveDefcom(dfData.idDef,valueDefcom.value)"style="width:200px;"></textarea>
+                </td>                  
+                <td>
+                    <select #mySelectDFAssignto (change)="selectAssignto(dfData.idDef,mySelectDFAssignto.value)">
+                        <option value="" [selected]="dfData.DefAssignto==''">-- Select Assign to --</option>
+                        <option *ngFor="let User of userData" value="{{User.idU}}" [selected]="dfData.DefAssignto==User.idU">{{User.UName}}</option>
+                    </select>
+                </td>
+                <td>
+                    <select #mySelectDFStatus (change)="selectStatus(dfData.idDef,mySelectDFStatus.value)">
+                        <option value="0" [selected]="dfData.DefStatus=='0'">Open</option>
+                        <option value="1" [selected]="dfData.DefStatus=='1'">Delivered to test</option>
+                        <option value="2" [selected]="dfData.DefStatus=='2'">Reject from test</option>
+                        <option value="3" [selected]="dfData.DefStatus=='3'">Closed</option>
+                        <option value="4" [selected]="dfData.DefStatus=='4'">Assigned</option>
+                        <option value="5" [selected]="dfData.DefStatus=='5'">Processing</option>
+                        <option value="6" [selected]="dfData.DefStatus=='6'">Pending</option>
+                        <option value="7" [selected]="dfData.DefStatus=='7'">Fixed</option>
+                        <option value="8" [selected]="dfData.DefStatus=='8'">Rejected</option>
+                        <option value="9" [selected]="dfData.DefStatus=='9'">Processing test</option>
+                        <option value="10" [selected]="dfData.DefStatus=='10'">Passed Test</option>
+                        <option value="11" [selected]="dfData.DefStatus=='11'">Approved to Release Env</option>
+                        <option value="12" [selected]="dfData.DefStatus=='12'">A-Delivered-to-Release Env</option>
+                        <option value="13" [selected]="dfData.DefStatus=='13'">Cancelled</option>
+                        <option value="14" [selected]="dfData.DefStatus=='14'">Reject  From DEV</option>
+                        <option value="15" [selected]="dfData.DefStatus=='15'">Delivered-to-Customer</option>
+                        <option value="16" [selected]="dfData.DefStatus=='16'">Monitor</option>
+                        <option value="17" [selected]="dfData.DefStatus=='17'">Re Open</option>
+                    </select>
+                </td>
+                <td>
+                    <select #mySelectDefType (change)="selectType(dfData.idDef,mySelectDefType.value)">
+                        <option value="0" [selected]="dfData.DefType=='0'">Coding logic/technic</option>
+                        <option value="1" [selected]="dfData.DefType=='1'">Communication failure</option>
+                        <option value="2" [selected]="dfData.DefType=='2'">Improvement process</option>
+                        <option value="3" [selected]="dfData.DefType=='3'">Design problem</option>
+                        <option value="4" [selected]="dfData.DefType=='4'">Team Misunderstand design</option>
+                        <option value="5" [selected]="dfData.DefType=='5'">User Misunderstand system</option>
+                        <option value="6" [selected]="dfData.DefType=='6'">Master data setup</option>
+                        <option value="7" [selected]="dfData.DefType=='7'">Decorative/cosmetic</option>
+                        <option value="8" [selected]="dfData.DefType=='8'">Performance problem</option>
+                        <option value="9" [selected]="dfData.DefType=='9'">Product</option>
+                        <option value="10" [selected]="dfData.DefType=='10'">Data Problem</option>
+                        <option value="11" [selected]="dfData.DefType=='11'">Development not completed</option>
+                        <option value="12" [selected]="dfData.DefType=='12'">Technical Pronlem</option>                                           
+                        <option value="13" [selected]="dfData.DefType=='13'">Deployment Problem</option>
+                        <option value="14" [selected]="dfData.DefType=='14'">New Requirment</option>
+                        <option value="15" [selected]="dfData.DefType=='15'">Change Requirment</option>
+                        <option value="16" [selected]="dfData.DefType=='16'">Requirment Not Clear</option>
+                    
+                    </select>
+                </td>
+                <td>
+                    <select #mySelectDFSource (change)="selectSource(dfData.idDef,mySelectDFSource.value)">
+                        <option value="0" [selected]="dfData.DefSource=='0'">Testing</option>
+                        <option value="1" [selected]="dfData.DefSource=='1'">POC</option>
+                        <option value="2" [selected]="dfData.DefSource=='2'">Causal Analysis</option>
+                        <option value="3" [selected]="dfData.DefSource=='3'">Random Check</option>
+                        <option value="4" [selected]="dfData.DefSource=='4'">Change</option>
+                        <option value="5" [selected]="dfData.DefSource=='5'">Improvement</option>
+                        <option value="6" [selected]="dfData.DefSource=='6'">Review</option>
+                        <option value="7" [selected]="dfData.DefSource=='7'">Customer</option>
+                    </select>
+                </td>
+                <td>
+                    <select #mySelectDFServerity (change)="selectServerity(dfData.idDef,mySelectDFServerity.value)">
+                        <option value="0" [selected]="dfData.DefServerity=='0'">Low</option>
+                        <option value="1" [selected]="dfData.DefServerity=='1'">Medium</option>
+                        <option value="2" [selected]="dfData.DefServerity=='2'">High</option>
+                        <option value="3" [selected]="dfData.DefServerity=='3'">Suggestion</option>
+                        <option value="4" [selected]="dfData.DefServerity=='4'">Critical</option>                    
+                    </select>
+                </td>
+                <td><input type="text" value="{{dfData.DefUpdatedate}}" readonly></td>
+                <td>
+                    <ng-container *ngFor='let userData of userData'>
+                        <ng-container *ngIf='dfData.DefUpdateby==userData.idU'>
+                            <input type="text" value="{{userData.UName}}" readonly>
+                        </ng-container>
+                    </ng-container>
+                </td>
+            </tr>
+
+        </tbody>
+     </table>  
+    </div>
+
+    <br />
+
+    <button type="button"(click)="myFunction3()" class="btn btn-primary btn-lg btn-block">Incident By Dev </button>
+    <div class ="sizeOfTable" id="myDIV3" [hidden]="!edited">
+        <table class="table table-hover table-bordered setFontSize">
+            <thead>
+                <tr class="setheader">
+                <th style="width:300px;">Defect ID</th> 
+                <th style="width:300px;">Title</th>         
+                <th style="width:300px;">Defect Description</th>
+                <th style="width:300px;">Expected Result</th>
+                <th style="width:300px;">Comment </th>     
+                <th style="width:300px;">Assign to </th>               
+                <th style="width:300px;">Status</th>
+                <th style="width:300px;">Defect Type</th>                
+                <th style="width:300px;">DefectSource<</th>
+                <th style="width:300px;">Serverity</th>
+
+                <th style="width:300px;">Update Date</th>
+                <th style="width:300px;">Update By</th>               
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let dfData of dfData1">  
+                <td> DF_000{{dfData.DefID}}</td>
+                <td>{{dfData.DefTitle}}</td> 
+                <td>{{dfData.DefDes}}</td> 
+                <td>{{dfData.DefE_Result}}</td>
+                <td>
+                    <textarea #valueDefcom rows="4" value="{{dfData.Defcom}}" (keyup)="saveDefcom(dfData.idDef,valueDefcom.value)"style="width:200px;"></textarea>
+                </td>               
+                <td>
+                    <select #mySelectDFAssignto (change)="selectAssignto(dfData.idDef,mySelectDFAssignto.value)">
+                        <option value="" [selected]="dfData.DefAssignto==''">-- Select Assign to --</option>
+                        <option *ngFor="let User of userData" value="{{User.idU}}" [selected]="dfData.DefAssignto==User.idU">{{User.UName}}</option>
+                    </select>
+                </td>
+                <td>
+                    <select #mySelectDFStatus (change)="selectStatus(dfData.idDef,mySelectDFStatus.value)">
+                        <option value="0" [selected]="dfData.DefStatus=='0'">Open</option>
+                        <option value="1" [selected]="dfData.DefStatus=='1'">Delivered to test</option>
+                        <option value="2" [selected]="dfData.DefStatus=='2'">Reject from test</option>
+                        <option value="3" [selected]="dfData.DefStatus=='3'">Closed</option>
+                        <option value="4" [selected]="dfData.DefStatus=='4'">Assigned</option>
+                        <option value="5" [selected]="dfData.DefStatus=='5'">Processing</option>
+                        <option value="6" [selected]="dfData.DefStatus=='6'">Pending</option>
+                        <option value="7" [selected]="dfData.DefStatus=='7'">Fixed</option>
+                        <option value="8" [selected]="dfData.DefStatus=='8'">Rejected</option>
+                        <option value="9" [selected]="dfData.DefStatus=='9'">Processing test</option>
+                        <option value="10" [selected]="dfData.DefStatus=='10'">Passed Test</option>
+                        <option value="11" [selected]="dfData.DefStatus=='11'">Approved to Release Env</option>
+                        <option value="12" [selected]="dfData.DefStatus=='12'">A-Delivered-to-Release Env</option>
+                        <option value="13" [selected]="dfData.DefStatus=='13'">Cancelled</option>
+                        <option value="14" [selected]="dfData.DefStatus=='14'">Reject  From DEV</option>
+                        <option value="15" [selected]="dfData.DefStatus=='15'">Delivered-to-Customer</option>
+                        <option value="16" [selected]="dfData.DefStatus=='16'">Monitor</option>
+                        <option value="17" [selected]="dfData.DefStatus=='17'">Re Open</option>
+                    </select>
+                </td>
+                <td>
+                    <select #mySelectDefType (change)="selectType(dfData.idDef,mySelectDefType.value)">
+                        <option value="0" [selected]="dfData.DefType=='0'">Coding logic/technic</option>
+                        <option value="1" [selected]="dfData.DefType=='1'">Communication failure</option>
+                        <option value="2" [selected]="dfData.DefType=='2'">Improvement process</option>
+                        <option value="3" [selected]="dfData.DefType=='3'">Design problem</option>
+                        <option value="4" [selected]="dfData.DefType=='4'">Team Misunderstand design</option>
+                        <option value="5" [selected]="dfData.DefType=='5'">User Misunderstand system</option>
+                        <option value="6" [selected]="dfData.DefType=='6'">Master data setup</option>
+                        <option value="7" [selected]="dfData.DefType=='7'">Decorative/cosmetic</option>
+                        <option value="8" [selected]="dfData.DefType=='8'">Performance problem</option>
+                        <option value="9" [selected]="dfData.DefType=='9'">Product</option>
+                        <option value="10" [selected]="dfData.DefType=='10'">Data Problem</option>
+                        <option value="11" [selected]="dfData.DefType=='11'">Development not completed</option>
+                        <option value="12" [selected]="dfData.DefType=='12'">Technical Pronlem</option>                                           
+                        <option value="13" [selected]="dfData.DefType=='13'">Deployment Problem</option>
+                        <option value="14" [selected]="dfData.DefType=='14'">New Requirment</option>
+                        <option value="15" [selected]="dfData.DefType=='15'">Change Requirment</option>
+                        <option value="16" [selected]="dfData.DefType=='16'">Requirment Not Clear</option>
+                    
+                    </select>
+                </td>
+                <td>
+                    <select #mySelectDFSource (change)="selectSource(dfData.idDef,mySelectDFSource.value)">
+                        <option value="0" [selected]="dfData.DefSource=='0'">Testing</option>
+                        <option value="1" [selected]="dfData.DefSource=='1'">POC</option>
+                        <option value="2" [selected]="dfData.DefSource=='2'">Causal Analysis</option>
+                        <option value="3" [selected]="dfData.DefSource=='3'">Random Check</option>
+                        <option value="4" [selected]="dfData.DefSource=='4'">Change</option>
+                        <option value="5" [selected]="dfData.DefSource=='5'">Improvement</option>
+                        <option value="6" [selected]="dfData.DefSource=='6'">Review</option>
+                        <option value="7" [selected]="dfData.DefSource=='7'">Customer</option>
+                    </select>
+                </td>
+                <td>
+                    <select #mySelectDFServerity (change)="selectServerity(dfData.idDef,mySelectDFServerity.value)">
+                        <option value="0" [selected]="dfData.DefServerity=='0'">Low</option>
+                        <option value="1" [selected]="dfData.DefServerity=='1'">Medium</option>
+                        <option value="2" [selected]="dfData.DefServerity=='2'">High</option>
+                        <option value="3" [selected]="dfData.DefServerity=='3'">Suggestion</option>
+                        <option value="4" [selected]="dfData.DefServerity=='4'">Critical</option>                    
+                    </select>
+                </td>
+                <td><input type="text" value="{{dfData.DefUpdatedate}}" readonly></td>
+                <td>
+                    <ng-container *ngFor='let userData of userData'>
+                        <ng-container *ngIf='dfData.DefUpdateby==userData.idU'>
+                            <input type="text" value="{{userData.UName}}" readonly>
+                        </ng-container>
+                    </ng-container>
+                </td>
+            </tr>
+
+        </tbody>
+     </table>
+    </div>
+
+
     <br /> 
     <button type="button"(click)="myFunction1()" class="btn btn-primary btn-lg btn-block"> Incident </button>
     <div class ="sizeOfTable" id="myDIV1"[hidden]>
@@ -133,237 +368,6 @@
         </tbody>
      </table>
     </div>
-    <br /> 
-    <div>
-    <button type="button"(click)="myFunction2()" class="btn btn-primary btn-lg btn-block">Incident By Tester </button>
-    <div class ="sizeOfTable" id="myDIV2"[hidden]>
-        <table class="table table-hover table-bordered setFontSize">
-            <thead>
-                <tr class="setheader">
-                <th style="width:300px;">Defect ID</th> 
-                <th style="width:300px;">Title</th>         
-                <th style="width:300px;">Defect Description</th>
-                <th style="width:300px;">Expected Result</th>
-                <th style="width:300px;">Comment </th>     
-                <th style="width:300px;">Assign to </th>               
-                <th style="width:300px;">Status</th>
-                <th style="width:300px;">Defect Type</th>                
-                <th style="width:300px;">DefectSource<</th>
-                <th style="width:300px;">Serverity</th>
-
-                <th style="width:300px;">Update Date</th>
-                <th style="width:300px;">Update By</th>               
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let dfData of dfData0">  
-                <td> DF_000{{dfData.DefID}}</td>
-                <td>{{dfData.DefTitle}}</td> 
-                <td>{{dfData.DefDes}}</td> 
-                <td>{{dfData.DefE_Result}}</td>
-                <td>
-                    <textarea #valueDefcom rows="4" value="{{dfData.Defcom}}" (keyup)="saveDefcom(dfData.idDef,valueDefcom.value)"style="width:200px;"></textarea>
-                </td>                  
-                <td>
-                    <select #mySelectDFAssignto (change)="selectAssignto(dfData.idDef,mySelectDFAssignto.value)">
-                        <option value="" [selected]="dfData.DefAssignto==''">-- Select Assign to --</option>
-                        <option *ngFor="let User of userData" value="{{User.idU}}" [selected]="dfData.DefAssignto==User.idU">{{User.UName}}</option>
-                    </select>
-                </td>
-                <td>
-                    <select #mySelectDFStatus (change)="selectStatus(dfData.idDef,mySelectDFStatus.value)">
-                        <option value="0" [selected]="dfData.DefStatus=='0'">Open</option>
-                        <option value="1" [selected]="dfData.DefStatus=='1'">Delivered to test</option>
-                        <option value="2" [selected]="dfData.DefStatus=='2'">Reject from test</option>
-                        <option value="3" [selected]="dfData.DefStatus=='3'">Closed</option>
-                        <option value="4" [selected]="dfData.DefStatus=='4'">Assigned</option>
-                        <option value="5" [selected]="dfData.DefStatus=='5'">Processing</option>
-                        <option value="6" [selected]="dfData.DefStatus=='6'">Pending</option>
-                        <option value="7" [selected]="dfData.DefStatus=='7'">Fixed</option>
-                        <option value="8" [selected]="dfData.DefStatus=='8'">Rejected</option>
-                        <option value="9" [selected]="dfData.DefStatus=='9'">Processing test</option>
-                        <option value="10" [selected]="dfData.DefStatus=='10'">Passed Test</option>
-                        <option value="11" [selected]="dfData.DefStatus=='11'">Approved to Release Env</option>
-                        <option value="12" [selected]="dfData.DefStatus=='12'">A-Delivered-to-Release Env</option>
-                        <option value="13" [selected]="dfData.DefStatus=='13'">Cancelled</option>
-                        <option value="14" [selected]="dfData.DefStatus=='14'">Reject  From DEV</option>
-                        <option value="15" [selected]="dfData.DefStatus=='15'">Delivered-to-Customer</option>
-                        <option value="16" [selected]="dfData.DefStatus=='16'">Monitor</option>
-                        <option value="17" [selected]="dfData.DefStatus=='17'">Re Open</option>
-                    </select>
-                </td>
-                <td>
-                    <select #mySelectDefType (change)="selectType(dfData.idDef,mySelectDefType.value)">
-                        <option value="0" [selected]="dfData.DefType=='0'">Coding logic/technic</option>
-                        <option value="1" [selected]="dfData.DefType=='1'">Communication failure</option>
-                        <option value="2" [selected]="dfData.DefType=='2'">Improvement process</option>
-                        <option value="3" [selected]="dfData.DefType=='3'">Design problem</option>
-                        <option value="4" [selected]="dfData.DefType=='4'">Team Misunderstand design</option>
-                        <option value="5" [selected]="dfData.DefType=='5'">User Misunderstand system</option>
-                        <option value="6" [selected]="dfData.DefType=='6'">Master data setup</option>
-                        <option value="7" [selected]="dfData.DefType=='7'">Decorative/cosmetic</option>
-                        <option value="8" [selected]="dfData.DefType=='8'">Performance problem</option>
-                        <option value="9" [selected]="dfData.DefType=='9'">Product</option>
-                        <option value="10" [selected]="dfData.DefType=='10'">Data Problem</option>
-                        <option value="11" [selected]="dfData.DefType=='11'">Development not completed</option>
-                        <option value="12" [selected]="dfData.DefType=='12'">Technical Pronlem</option>                                           
-                        <option value="13" [selected]="dfData.DefType=='13'">Deployment Problem</option>
-                        <option value="14" [selected]="dfData.DefType=='14'">New Requirment</option>
-                        <option value="15" [selected]="dfData.DefType=='15'">Change Requirment</option>
-                        <option value="16" [selected]="dfData.DefType=='16'">Requirment Not Clear</option>
-                    
-                    </select>
-                </td>
-                <td>
-                    <select #mySelectDFSource (change)="selectSource(dfData.idDef,mySelectDFSource.value)">
-                        <option value="0" [selected]="dfData.DefSource=='0'">Testing</option>
-                        <option value="1" [selected]="dfData.DefSource=='1'">POC</option>
-                        <option value="2" [selected]="dfData.DefSource=='2'">Causal Analysis</option>
-                        <option value="3" [selected]="dfData.DefSource=='3'">Random Check</option>
-                        <option value="4" [selected]="dfData.DefSource=='4'">Change</option>
-                        <option value="5" [selected]="dfData.DefSource=='5'">Improvement</option>
-                        <option value="6" [selected]="dfData.DefSource=='6'">Review</option>
-                        <option value="7" [selected]="dfData.DefSource=='7'">Customer</option>
-                    </select>
-                </td>
-                <td>
-                    <select #mySelectDFServerity (change)="selectServerity(dfData.idDef,mySelectDFServerity.value)">
-                        <option value="0" [selected]="dfData.DefServerity=='0'">Low</option>
-                        <option value="1" [selected]="dfData.DefServerity=='1'">Medium</option>
-                        <option value="2" [selected]="dfData.DefServerity=='2'">High</option>
-                        <option value="3" [selected]="dfData.DefServerity=='3'">Suggestion</option>
-                        <option value="4" [selected]="dfData.DefServerity=='4'">Critical</option>                    
-                    </select>
-                </td>
-                <td><input type="text" value="{{dfData.DefUpdatedate}}" readonly></td>
-                <td>
-                    <ng-container *ngFor='let userData of userData'>
-                        <ng-container *ngIf='dfData.DefUpdateby==userData.idU'>
-                            <input type="text" value="{{userData.UName}}" readonly>
-                        </ng-container>
-                    </ng-container>
-                </td>
-            </tr>
-
-        </tbody>
-     </table>
-       </div>
-    </div>
-    <br /> 
-    <button type="button"(click)="myFunction3()" class="btn btn-primary btn-lg btn-block">Incident By Dev </button>
-    <div class ="sizeOfTable" id="myDIV3" [hidden]>
-        <table class="table table-hover table-bordered setFontSize">
-            <thead>
-                <tr class="setheader">
-                <th style="width:300px;">Defect ID</th> 
-                <th style="width:300px;">Title</th>         
-                <th style="width:300px;">Defect Description</th>
-                <th style="width:300px;">Expected Result</th>
-                <th style="width:300px;">Comment </th>     
-                <th style="width:300px;">Assign to </th>               
-                <th style="width:300px;">Status</th>
-                <th style="width:300px;">Defect Type</th>                
-                <th style="width:300px;">DefectSource<</th>
-                <th style="width:300px;">Serverity</th>
-
-                <th style="width:300px;">Update Date</th>
-                <th style="width:300px;">Update By</th>               
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let dfData of dfData1">  
-                <td> DF_000{{dfData.DefID}}</td>
-                <td>{{dfData.DefTitle}}</td> 
-                <td>{{dfData.DefDes}}</td> 
-                <td>{{dfData.DefE_Result}}</td>
-                <td>
-                    <textarea #valueDefcom rows="4" value="{{dfData.Defcom}}" (keyup)="saveDefcom(dfData.idDef,valueDefcom.value)"style="width:200px;"></textarea>
-                </td>               
-                <td>
-                    <select #mySelectDFAssignto (change)="selectAssignto(dfData.idDef,mySelectDFAssignto.value)">
-                        <option value="" [selected]="dfData.DefAssignto==''">-- Select Assign to --</option>
-                        <option *ngFor="let User of userData" value="{{User.idU}}" [selected]="dfData.DefAssignto==User.idU">{{User.UName}}</option>
-                    </select>
-                </td>
-                <td>
-                    <select #mySelectDFStatus (change)="selectStatus(dfData.idDef,mySelectDFStatus.value)">
-                        <option value="0" [selected]="dfData.DefStatus=='0'">Open</option>
-                        <option value="1" [selected]="dfData.DefStatus=='1'">Delivered to test</option>
-                        <option value="2" [selected]="dfData.DefStatus=='2'">Reject from test</option>
-                        <option value="3" [selected]="dfData.DefStatus=='3'">Closed</option>
-                        <option value="4" [selected]="dfData.DefStatus=='4'">Assigned</option>
-                        <option value="5" [selected]="dfData.DefStatus=='5'">Processing</option>
-                        <option value="6" [selected]="dfData.DefStatus=='6'">Pending</option>
-                        <option value="7" [selected]="dfData.DefStatus=='7'">Fixed</option>
-                        <option value="8" [selected]="dfData.DefStatus=='8'">Rejected</option>
-                        <option value="9" [selected]="dfData.DefStatus=='9'">Processing test</option>
-                        <option value="10" [selected]="dfData.DefStatus=='10'">Passed Test</option>
-                        <option value="11" [selected]="dfData.DefStatus=='11'">Approved to Release Env</option>
-                        <option value="12" [selected]="dfData.DefStatus=='12'">A-Delivered-to-Release Env</option>
-                        <option value="13" [selected]="dfData.DefStatus=='13'">Cancelled</option>
-                        <option value="14" [selected]="dfData.DefStatus=='14'">Reject  From DEV</option>
-                        <option value="15" [selected]="dfData.DefStatus=='15'">Delivered-to-Customer</option>
-                        <option value="16" [selected]="dfData.DefStatus=='16'">Monitor</option>
-                        <option value="17" [selected]="dfData.DefStatus=='17'">Re Open</option>
-                    </select>
-                </td>
-                <td>
-                    <select #mySelectDefType (change)="selectType(dfData.idDef,mySelectDefType.value)">
-                        <option value="0" [selected]="dfData.DefType=='0'">Coding logic/technic</option>
-                        <option value="1" [selected]="dfData.DefType=='1'">Communication failure</option>
-                        <option value="2" [selected]="dfData.DefType=='2'">Improvement process</option>
-                        <option value="3" [selected]="dfData.DefType=='3'">Design problem</option>
-                        <option value="4" [selected]="dfData.DefType=='4'">Team Misunderstand design</option>
-                        <option value="5" [selected]="dfData.DefType=='5'">User Misunderstand system</option>
-                        <option value="6" [selected]="dfData.DefType=='6'">Master data setup</option>
-                        <option value="7" [selected]="dfData.DefType=='7'">Decorative/cosmetic</option>
-                        <option value="8" [selected]="dfData.DefType=='8'">Performance problem</option>
-                        <option value="9" [selected]="dfData.DefType=='9'">Product</option>
-                        <option value="10" [selected]="dfData.DefType=='10'">Data Problem</option>
-                        <option value="11" [selected]="dfData.DefType=='11'">Development not completed</option>
-                        <option value="12" [selected]="dfData.DefType=='12'">Technical Pronlem</option>                                           
-                        <option value="13" [selected]="dfData.DefType=='13'">Deployment Problem</option>
-                        <option value="14" [selected]="dfData.DefType=='14'">New Requirment</option>
-                        <option value="15" [selected]="dfData.DefType=='15'">Change Requirment</option>
-                        <option value="16" [selected]="dfData.DefType=='16'">Requirment Not Clear</option>
-                    
-                    </select>
-                </td>
-                <td>
-                    <select #mySelectDFSource (change)="selectSource(dfData.idDef,mySelectDFSource.value)">
-                        <option value="0" [selected]="dfData.DefSource=='0'">Testing</option>
-                        <option value="1" [selected]="dfData.DefSource=='1'">POC</option>
-                        <option value="2" [selected]="dfData.DefSource=='2'">Causal Analysis</option>
-                        <option value="3" [selected]="dfData.DefSource=='3'">Random Check</option>
-                        <option value="4" [selected]="dfData.DefSource=='4'">Change</option>
-                        <option value="5" [selected]="dfData.DefSource=='5'">Improvement</option>
-                        <option value="6" [selected]="dfData.DefSource=='6'">Review</option>
-                        <option value="7" [selected]="dfData.DefSource=='7'">Customer</option>
-                    </select>
-                </td>
-                <td>
-                    <select #mySelectDFServerity (change)="selectServerity(dfData.idDef,mySelectDFServerity.value)">
-                        <option value="0" [selected]="dfData.DefServerity=='0'">Low</option>
-                        <option value="1" [selected]="dfData.DefServerity=='1'">Medium</option>
-                        <option value="2" [selected]="dfData.DefServerity=='2'">High</option>
-                        <option value="3" [selected]="dfData.DefServerity=='3'">Suggestion</option>
-                        <option value="4" [selected]="dfData.DefServerity=='4'">Critical</option>                    
-                    </select>
-                </td>
-                <td><input type="text" value="{{dfData.DefUpdatedate}}" readonly></td>
-                <td>
-                    <ng-container *ngFor='let userData of userData'>
-                        <ng-container *ngIf='dfData.DefUpdateby==userData.idU'>
-                            <input type="text" value="{{userData.UName}}" readonly>
-                        </ng-container>
-                    </ng-container>
-                </td>
-            </tr>
-
-        </tbody>
-     </table>
-    </div>
-
 </div>
 
     <!-- <button (click)="myFunction()">Try it</button> -->
