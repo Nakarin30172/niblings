@@ -5,11 +5,11 @@ instance_class: f1
 
 handlers:
   - url: /(.*\.[A-Za-z0-9]{1,4})$
-    static_files: dist/SupportTestingSystem/\1
-    upload: dist/SupportTestingSystem/(.*\.[A-Za-z0-9]{1,4})$
+    static_files: dist/binling/\1
+    upload: dist/binling/(.*\.[A-Za-z0-9]{1,4})$
   - url: /(.*)$
-    static_files: dist/SupportTestingSystem/index.html
-    upload: dist/SupportTestingSystem/index.html
+    static_files: dist/binling/index.html
+    upload: dist/binling/index.html
 
 skip_files:
   - e2e/

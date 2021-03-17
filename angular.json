@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "SupportTestingSystem": {
+    "binling": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/SupportTestingSystem",
+            "outputPath": "dist/binling",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -70,18 +70,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "SupportTestingSystem:build"
+            "browserTarget": "binling:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "SupportTestingSystem:build:production"
+              "browserTarget": "binling:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "SupportTestingSystem:build"
+            "browserTarget": "binling:build"
           }
         },
         "test": {
@@ -118,15 +118,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "SupportTestingSystem:serve"
+            "devServerTarget": "binling:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "SupportTestingSystem:serve:production"
+              "devServerTarget": "binling:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "SupportTestingSystem"
+  "defaultProject": "binling"
 }
