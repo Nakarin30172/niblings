@@ -14,12 +14,7 @@ export class ManageUserComponent implements OnInit {
     private afs: AngularFirestore
   ) 
   {
-    /*
-    this.afs.collection('users').valueChanges().subscribe(resListUser =>{
-      this.detailUsers = resListUser;
-      console.log(resListUser);
-    });
-    */
+
     this.afs.collection('User').valueChanges().subscribe(resListUser =>{
       this.detailUsers = resListUser;
       console.log(resListUser);

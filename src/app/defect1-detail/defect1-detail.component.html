@@ -1,4 +1,5 @@
-<div class="container space-header" >
+<body>
+<div class="container-xl space-header pad">
     <style>
         tr.setheader {
             color: #fff;
@@ -11,9 +12,16 @@
             font-size: 12.5px;
         }
         .sizeOfTable{
-            height: 500px;
+            height: 1000px;
             overflow:scroll;
-        }
+            /* width : 100%; */
+            
+        }.pad {
+            padding-left: 30px;
+            padding-right: 30px  ;
+            margin-right: auto;
+            margin-left: auto;
+}
 
     </style>
     <h3><i class="glyphicon glyphicon-user"></i> List Defect</h3>
@@ -21,9 +29,7 @@
     <a [routerLink]="['../add-user']" class="btn btn-primary" style="width: 80px;">Add User</a>
 
     <br><br> -->
-    <br /> 
-
-    
+    <br/>
     <button type="button"(click)="myFunction2()" class="btn btn-primary btn-lg btn-block">Incident By Tester </button>
     <div class ="sizeOfTable" id="myDIV2"[hidden]="!edited">
         <table class="table table-hover table-bordered setFontSize">
@@ -369,6 +375,7 @@
      </table>
     </div>
 </div>
+</body>
 
     <!-- <button (click)="myFunction()">Try it</button> -->
     <!-- <button type="button"(click)="myFunction()" class="btn btn-primary btn-lg btn-block">Defect Sum </button> -->
