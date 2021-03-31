@@ -30,6 +30,63 @@
 
     <br><br> -->
     <br/>
+    <div class ="sizeOfTable" style="height: auto;overflow: scroll;">
+        <table class="table table-hover table-bordered setFontSize">
+            <thead style="text-align: center">
+                <tr class="setheader">
+                <th style="width:auto;">Status</th> 
+                <th style="width:100px;">Open</th>
+                <th style="width:100px;">Delivered to test</th> 
+                <th style="width:100px;">Reject from test</th>          
+                <th style="width:100px;">Closed</th> 
+                <th style="width:100px;">Assigned</th> 
+                <th style="width:100px;">Processing</th> 
+                <th style="width:100px;">Pending</th> 
+                <th style="width:100px;">Fixed</th> 
+                <th style="width:100px;">Rejected</th> 
+                <th style="width:100px;">Processing test</th> 
+                <th style="width:100px;">Passed Test</th> 
+                <th style="width:100px;">Approved to Release Env</th> 
+                <th style="width:100px;">A-Delivered-to-Release Env</th> 
+                <th style="width:100px;">Cancelled</th> 
+                <th style="width:100px;">Reject  From DEV</th> 
+                <th style="width:100px;">Delivered-to-Customer</th>
+                <th style="width:100px;">Monitor</th>
+                <th style="width:100px;">Re Open</th>  
+
+                        
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="text-align: center">
+                <td>จำนวน</td> 
+                <td>{{tsum['0']}}</td> 
+                <td>{{tsum['1']}}</td> 
+                <td>{{tsum['2']}}</td> 
+                <td>{{tsum['3']}}</td> 
+                <td>{{tsum['4']}}</td> 
+                <td>{{tsum['5']}}</td> 
+                <td>{{tsum['6']}}</td> 
+                <td>{{tsum['7']}}</td> 
+                <td>{{tsum['8']}}</td> 
+                <td>{{tsum['9']}}</td> 
+                <td>{{tsum['10']}}</td> 
+                <td>{{tsum['11']}}</td> 
+                <td>{{tsum['12']}}</td> 
+                <td>{{tsum['13']}}</td> 
+                <td>{{tsum['14']}}</td> 
+                <td>{{tsum['15']}}</td> 
+                <td>{{tsum['16']}}</td> 
+                <td>{{tsum['17']}}</td> 
+
+            </tr>
+        </tbody>
+     </table>  
+    </div>
+
+
+
+    <br/>
     <button type="button"(click)="myFunction2()" class="btn btn-primary btn-lg btn-block">Incident By Tester </button>
     <div class ="sizeOfTable" id="myDIV2"[hidden]="!edited">
         <table class="table table-hover table-bordered setFontSize">

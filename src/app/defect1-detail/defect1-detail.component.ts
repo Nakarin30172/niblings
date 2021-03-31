@@ -39,10 +39,10 @@ export class Defect1DetailComponent implements OnInit {
   userData = null;
   dfPlusData=null;
   a=null;
-
+  tsum = {};
   timeoutDefTitle=null;
   timeoutDefcom=null;
-
+  datat=null;
   ngOnInit() {
     document.getElementById("myDIV3").style.display="none"
 
@@ -66,6 +66,20 @@ export class Defect1DetailComponent implements OnInit {
       this.dfData1.sort(function (x,y){
         return parseInt(x.DefID)-parseInt(y.DefID)
       })
+
+      let mapdata = this.dfData.map(a => a.DefStatus)
+      let reduc = {}
+      for (let j = 0 ; j < 18 ; j++) 
+        reduc[j] = 0
+      for(let i = 0 ; i< mapdata.length ; i++) 
+          reduc[mapdata[i]] ++;
+      console.log(reduc['0'])
+
+      this.tsum =reduc;
+    
+
+
+
       // this.getPlusDefectID();
       // this.checkUpdate();
     });
